@@ -67,11 +67,10 @@ if ($env:SystemDrive -eq 'X:') {
 
     if (Test-Path "E:\Images\5CG3270RZK\P3_NTFS_Windows.wim") {
         Expand-WindowsImage -ApplyPath C:\ -ImagePath "E:\Images\5CG3270RZK\P3_NTFS_Windows.wim" -Index 1
-
-        C:\Windows\System32\bcdboot.exe C:\Windows /v /c
-
         Expand-WindowsImage -ApplyPath S:\ -ImagePath "E:\Images\5CG3270RZK\P1_FAT32_SYSTEM.wim" -Index 1
         Expand-WindowsImage -ApplyPath R:\ -ImagePath "E:\Images\5CG3270RZK\P4_NTFS_Windows RE.wim" -Index 1
+
+        C:\Windows\System32\bcdboot.exe C:\Windows /v /p
     }
 }
 else {
