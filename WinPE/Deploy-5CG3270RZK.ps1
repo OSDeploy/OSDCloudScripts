@@ -65,13 +65,13 @@ if ($env:SystemDrive -eq 'X:') {
     $DiskpartScript | Out-File X:\CreatePartitions-UEFI.txt -Encoding ASCII
     DiskPart /s X:\CreatePartitions-UEFI.txt
 
-    if (Test-Path "D:\Images\5CG3270RZK\P3_NTFS_Windows.wim") {
-        Expand-WindowsImage -ApplyPath C:\ -ImagePath "D:\Images\5CG3270RZK\P3_NTFS_Windows.wim" -Index 1
+    if (Test-Path "E:\Images\5CG3270RZK\P3_NTFS_Windows.wim") {
+        Expand-WindowsImage -ApplyPath C:\ -ImagePath "E:\Images\5CG3270RZK\P3_NTFS_Windows.wim" -Index 1
 
         C:\Windows\System32\bcdboot.exe C:\Windows /v /c
 
-        Expand-WindowsImage -ApplyPath S:\ -ImagePath "D:\Images\5CG3270RZK\P1_FAT32_SYSTEM.wim" -Index 1
-        Expand-WindowsImage -ApplyPath R:\ -ImagePath "D:\Images\5CG3270RZK\P4_NTFS_Windows RE.wim" -Index 1
+        Expand-WindowsImage -ApplyPath S:\ -ImagePath "E:\Images\5CG3270RZK\P1_FAT32_SYSTEM.wim" -Index 1
+        Expand-WindowsImage -ApplyPath R:\ -ImagePath "E:\Images\5CG3270RZK\P4_NTFS_Windows RE.wim" -Index 1
     }
 }
 else {
