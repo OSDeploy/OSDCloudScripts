@@ -13,15 +13,9 @@
 .EXTERNALSCRIPTDEPENDENCIES 
 .RELEASENOTES
 #>
-#Requires -Modules AzureRM.Netcore
-#Requires -Modules @{ ModuleName="AzureRM.Netcore"; ModuleVersion="0.12.0" }
-#Requires -Modules @{ ModuleName="AzureRM.Netcore"; MaximumVersion="0.12.0" }
-#Requires -Modules @{ ModuleName="OSD"; ModuleVersion="23.5.26.1" }
-#Requires -PSEdition Core
+#Requires -PSEdition Desktop
 #Requires -RunAsAdministrator
 #Requires -Version 5.1
-#Requires -Assembly path\to\foo.dll
-#Requires -Assembly "System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
 <#
 .DESCRIPTION
 Some Defaults
@@ -37,7 +31,6 @@ param(
 [ValidateNotNull()]
 [ValidateNotNullOrEmpty()]
 [ValidateCount(0,5)]
-[ValidateSet("sun", "moon", "earth")]
 [Alias("p1")] 
 $Testvar,
 
