@@ -7,6 +7,6 @@
     
 .NOTES
     Author: David Segura
-    Modified date: 2023-07-16
+    Modified: 2023-07-16
 #>
 powercfg /availablesleepstates

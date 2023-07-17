@@ -8,7 +8,7 @@
 
 .NOTES
     Author: David Segura
-    Modified date: 2023-07-16
+    Modified: 2023-07-16
 #>
 powercfg.exe /sleepstudy /output "$env:TEMP\SleepStudy.html"
 Invoke-Item "$env:TEMP\SleepStudy.html"

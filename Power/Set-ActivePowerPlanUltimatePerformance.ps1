@@ -7,7 +7,7 @@
     
 .NOTES
     Author: David Segura
-    Modified date: 2023-07-16
+    Modified: 2023-07-16
 
     This power plan may not exist on all computers
 #>

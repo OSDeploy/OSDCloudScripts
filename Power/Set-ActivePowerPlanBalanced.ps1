@@ -7,6 +7,6 @@
     
 .NOTES
     Author: David Segura
-    Modified date: 2023-07-16
+    Modified: 2023-07-16
 #>
 powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e

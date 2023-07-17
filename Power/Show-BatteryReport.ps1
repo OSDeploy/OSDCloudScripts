@@ -7,7 +7,7 @@
 
 .NOTES
     Author: David Segura
-    Modified date: 2023-07-16
+    Modified: 2023-07-16
 #>
 powercfg.exe /batteryreport /output "$env:TEMP\BatteryReport.html"
 Invoke-Item "$env:TEMP\BatteryReport.html"
