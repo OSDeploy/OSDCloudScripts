@@ -1,5 +1,14 @@
-[CmdletBinding()]
-param ()
+<#
+.DESCRIPTION
+    Configure Windows Terminal with PowerShell as default shell
+
+.LINK
+    https://support.microsoft.com/en-us/windows/command-prompt-and-windows-powershell-for-windows-11-6453ce98-da91-476f-8651-5c14d5777c20
+
+.NOTES
+    Author: David Segura
+    Modified: 2023-07-16
+#>
 $Url = 'https://nuget.org/nuget.exe'
 $FileName = 'NuGet.exe'
 
