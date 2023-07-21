@@ -1,1 +1,1 @@
-Scripts in here are under development and should only be used by the Collaborators
+Scripts in Alpha are under development and should only be used by Repository Collaborators
