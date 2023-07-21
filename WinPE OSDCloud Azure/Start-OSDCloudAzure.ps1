@@ -1,20 +1,7 @@
-<#PSScriptInfo
-.VERSION 23.6.9.1
-.GUID 68322f64-977e-4d75-9778-03a138b96042
-.AUTHOR David Segura
-.COMPANYNAME David Segura
-.COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS OSDCloud Azure
-.LICENSEURI 
-.PROJECTURI
-.ICONURI 
-.EXTERNALMODULEDEPENDENCIES 
-.REQUIREDSCRIPTS 
-.EXTERNALSCRIPTDEPENDENCIES 
-.RELEASENOTES
-#>
 #Requires -RunAsAdministrator
 <#
+.SYNOPSIS
+
 .DESCRIPTION
 This is a good script to see how OSDCloudAzure starts
 #>
