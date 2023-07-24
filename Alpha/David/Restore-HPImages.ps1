@@ -6,7 +6,6 @@ https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deplo
 #>
 $ImageRoot = 'E:\OSDCloud\OS\HP\EliteBook860-5CG3270RZK'
 
-
 $DiskNumber = 0
 
 #Partition 1
@@ -64,15 +63,58 @@ list volume
 exit
 "@
 
+$ReAgentXmlPath = 'C:\Windows\System32\Recovery\ReAgent.xml'
+
+$ReAgentXml = @'
+<?xml version='1.0' encoding='utf-8'?>
+
+<WindowsRE version="2.0">
+  <WinreBCD id="{00000000-0000-0000-0000-000000000000}"/>
+  <WinreLocation path="" id="0" offset="0" guid="{00000000-0000-0000-0000-000000000000}"/>
+  <ImageLocation path="" id="0" offset="0" guid="{00000000-0000-0000-0000-000000000000}"/>
+  <PBRImageLocation path="" id="0" offset="0" guid="{00000000-0000-0000-0000-000000000000}" index="0"/>
+  <PBRCustomImageLocation path="" id="0" offset="0" guid="{00000000-0000-0000-0000-000000000000}" index="0"/>
+  <InstallState state="0"/>
+  <OsInstallAvailable state="0"/>
+  <CustomImageAvailable state="0"/>
+  <IsAutoRepairOn state="0"/>
+  <WinREStaged state="0"/>
+  <OperationParam path=""/>
+  <OperationPermanent state="0"/>
+  <OsBuildVersion path=""/>
+  <OemTool state="0"/>
+  <IsServer state="0"/>
+  <DownlevelWinreLocation path="" id="0" offset="0" guid="{00000000-0000-0000-0000-000000000000}"/>
+  <IsWimBoot state="0"/>
+  <NarratorScheduled state="0"/>
+  <ScheduledOperation state="0"/>
+</WindowsRE>
+'@
+
 if ($env:SystemDrive -eq 'X:') {
     $DiskpartScript | Out-File X:\CreatePartitions-UEFI.txt -Encoding ASCII
     DiskPart /s X:\CreatePartitions-UEFI.txt
 
     if (Test-Path "$ImageRoot\1-SYSTEM.wim") {
         Expand-WindowsImage -ApplyPath S:\ -ImagePath "$ImageRoot\1-SYSTEM.wim" -Index 1
-        Expand-WindowsImage -ApplyPath R:\ -ImagePath "$ImageRoot\3-Windows.wim" -Index 1
-        Expand-WindowsImage -ApplyPath C:\ -ImagePath "$ImageRoot\4-Windows RE Tools.wim" -Index 1
-        #C:\Windows\System32\bcdboot.exe C:\Windows /v /p
+        Expand-WindowsImage -ApplyPath C:\ -ImagePath "$ImageRoot\3-Windows.wim" -Index 1
+        Expand-WindowsImage -ApplyPath R:\ -ImagePath "$ImageRoot\4-Windows RE Tools.wim" -Index 1
+
+        # Cleanup System Partition
+        Remove-Item -Path S:\Boot -Recurse -Force
+        Remove-Item -Path S:\Microsoft -Recurse -Force
+
+        # Move Recovery back to Windows
+        Robocopy R:\Recovery\WindowsRE C:\Windows\System32\Recovery /E
+
+        # Reset ReAgent.xml
+        $ReAgentXml | Out-File -FilePath $ReAgentXmlPath -Encoding UTF8 -Force
+
+        # Cleanup Recovery Partition
+        Remove-Item -Path R:\Recovery -Force -Recurse
+
+        # Set Boot Partition
+        C:\Windows\System32\bcdboot.exe C:\Windows /v /p
     }
 }
 else {
