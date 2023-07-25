@@ -9,8 +9,9 @@ https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deplo
 # Map to the Images
 net use Z: \\OSDHome\Data\Images\HP /user:OSDHome\OSDCloud
 
-# Set the ImageRoot
+# Set the ImageRoot and ImageDescription
 $ImageRoot = 'Z:\EliteBook860-5CG3270RZK'
+$ImageDescription = 'EliteBook860-5CG3270RZK'
 
 # Target Disk
 $DiskNumber = 0
@@ -128,7 +129,7 @@ if ($env:SystemDrive -eq 'X:') {
         W:\Windows\System32\bcdboot.exe W:\Windows /v /p
 
         # Capture FFU
-        DISM.exe /Capture-FFU /ImageFile=$ImageRoot\capture.ffu /CaptureDrive=\\.\PhysicalDrive0 /Name:disk0 /Description:"EliteBook860-5CG3270RZK"
+        DISM.exe /Capture-FFU /ImageFile=$ImageRoot\capture.ffu /CaptureDrive=\\.\PhysicalDrive0 /Name:disk0 /Description:"$ImageDescription"
 
         # Enable Balanced Power Plan
         powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e
