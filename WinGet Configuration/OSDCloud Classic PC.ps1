@@ -354,7 +354,7 @@ function Confirm-UIXaml {
     if (-not $installedVersion) {
         #Find-Package -Name $PkgName
         Write-Host ("{0}" -f (Get-Symbol -Symbol Script)) -ForegroundColor Green -NoNewline
-        Write-Host -ForegroundColor Yellow "Installing $AppName NuGet Package ..."
+        Write-Host -ForegroundColor Yellow " Installing $AppName NuGet Package ..."
         #Install-Package -Name $PkgName -RequiRedVersion $MaxVer -Force | Out-Null
         Install-Package -Name $PkgName -MinimumVersion $MinVer -MaximumVersion $MaxVer -Force -Source Nuget | Out-Null
 
@@ -362,7 +362,7 @@ function Confirm-UIXaml {
         $UIXamlPackage = Get-Package -Name $PkgName -MinimumVersion $MinVer -MaximumVersion $MaxVer -ErrorAction SilentlyContinue | Select-Object -First 1
         if ($UIXamlPackage.Version) {
             Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-            Write-Host -ForegroundColor Green "$AppName NuGet Package $($UIXamlPackage.Version) has been installed"
+            Write-Host -ForegroundColor Green " $AppName NuGet Package $($UIXamlPackage.Version) has been installed"
         }
         else {
             Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
@@ -415,7 +415,8 @@ function Confirm-VCLibs140 {
         }
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor White -NoNewline        Write-Host -ForegroundColor Yellow " $AppName is not installed, attempting to download and install..."
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor White -NoNewline        
+        Write-Host -ForegroundColor Yellow " $AppName is not installed, attempting to download and install..."
     }
 
     if (-not $isElevated) {
@@ -487,11 +488,11 @@ function Confirm-DesktopAppInstaller {
 
     if (-not (Confirm-UIXaml)) {
         Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
-        Write-Host -ForegroundColor Red "Cannot update $AppName without first updating UI.Xaml"
+        Write-Host -ForegroundColor Red " Cannot update $AppName without first updating UI.Xaml"
         return $false
     }
-    Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor Green -NoNewline
-    Write-Host -ForegroundColor Yellow "Attempting to download and install the latest $AppName from GitHub"
+    Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor White -NoNewline
+    Write-Host -ForegroundColor Yellow " Attempting to download and install the latest $AppName from GitHub"
 
     # Download latest winget-cli (DesktopAppInstaller) from github https://github.com/microsoft/winget-cli/releases/latest
     $GitRepo = "microsoft/winget-cli"
@@ -516,14 +517,14 @@ function Confirm-DesktopAppInstaller {
     Write-Host -ForegroundColor Gray " Latest Release of DesktopAppInstaller from GitHub is $($Release.tag_name)"
     # remove any leading non-numeric characters, then any letters or hyphens
     $ReleaseVer = (($Release.tag_name) -replace '^[^0-9]*') -replace '[a-zA-Z\-]'
-    Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor Green -NoNewline
+    Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor White -NoNewline
     Write-Host -ForegroundColor Yellow " Downloading and Installing $AppName $($Release.tag_name)"
 
     try {
         $ThisJSON = Invoke-WebRequest -UseBasicParsing -Uri "https://api.github.com/repos/$GitRepo/releases/$($Release.id)" | ConvertFrom-Json
     } catch {
         Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
-        Write-Host -ForegroundColor Red "Download failed : $_"
+        Write-Host -ForegroundColor Red " Download failed : $_"
         return $false
     }
 
@@ -562,7 +563,7 @@ function Confirm-DesktopAppInstaller {
                     [string]$InstallerSHA265 = Invoke-RestMethod -Uri $asset.browser_download_url
                 } catch {
                     Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
-                    Write-Host -ForegroundColor Red "[!] Download failed : $_"
+                    Write-Host -ForegroundColor Red " Download failed : $_"
                 }
             }
 
@@ -571,7 +572,7 @@ function Confirm-DesktopAppInstaller {
 
     if (-not (Test-Path -Path $InstallerLicense) -or -not (Test-Path -Path $InstallerFile) ) {
         Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
-        Write-Host -ForegroundColor Red "[!] Installtion files not found"
+        Write-Host -ForegroundColor Red " Installtion files not found"
         return $false
     }
 
