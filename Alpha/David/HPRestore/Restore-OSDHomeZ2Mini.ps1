@@ -10,8 +10,8 @@ https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deplo
 net use Z: \\OSDHome\Data\Images\HP /user:OSDHome\OSDCloud
 
 # Set the ImageRoot and ImageDescription
-$ImageRoot = 'Z:\Firefly16P-5CG3281NM4'
-$ImageDescription = 'Firefly16P-5CG3281NM4'
+$ImageRoot = 'Z:\Z2Mini-MXL3293B7G'
+$ImageDescription = 'Z2Mini-MXL3293B7G'
 
 # Target Disk
 $DiskNumber = 0
@@ -146,7 +146,7 @@ if ($env:SystemDrive -eq 'X:') {
         powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e
 
         # Optimize FFU
-        # DISM.exe /Optimize-FFU /ImageFile:"D:\Images\HP\Firefly16P-5CG3281NM4\capture.ffu"
+        # DISM.exe /Optimize-FFU /ImageFile:"$ImageRoot\capture.ffu"
     }
 }
 else {
