@@ -100,38 +100,49 @@ $ReAgentXml = @'
 '@
 
 if ($env:SystemDrive -eq 'X:') {
-    $DiskpartScript | Out-File X:\CreatePartitions-UEFI.txt -Encoding ASCII
-    DiskPart /s X:\CreatePartitions-UEFI.txt
-
     if (Test-Path "$ImageRoot\1-SYSTEM.wim") {
-        
-        # Enable High Performance Power Plan
+        $DiskpartScript | Out-File X:\CreatePartitions-UEFI.txt -Encoding ASCII
+        Write-Host -ForegroundColor Yellow "[!] DiskPart /s X:\CreatePartitions-UEFI.txt"
+        DiskPart /s X:\CreatePartitions-UEFI.txt
+
+        Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
         powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 
+        Write-Host -ForegroundColor Yellow "[!] Expand-WindowsImage -ApplyPath S:\ -ImagePath `"$ImageRoot\1-SYSTEM.wim`" -Index 1"
         Expand-WindowsImage -ApplyPath S:\ -ImagePath "$ImageRoot\1-SYSTEM.wim" -Index 1
+
+        Write-Host -ForegroundColor Yellow "[!] Expand-WindowsImage -ApplyPath W:\ -ImagePath `"$ImageRoot\3-Windows.wim`" -Index 1"
         Expand-WindowsImage -ApplyPath W:\ -ImagePath "$ImageRoot\3-Windows.wim" -Index 1
+
+        Write-Host -ForegroundColor Yellow "[!] Expand-WindowsImage -ApplyPath R:\ -ImagePath `"$ImageRoot\4-Windows RE Tools.wim`" -Index 1"
         Expand-WindowsImage -ApplyPath R:\ -ImagePath "$ImageRoot\4-Windows RE Tools.wim" -Index 1
 
-        # Cleanup System Partition
+        Write-Host -ForegroundColor Yellow "[!] Cleanup System Partition"
         Remove-Item -Path S:\EFI\Boot -Recurse -Force
         Remove-Item -Path S:\EFI\Microsoft -Recurse -Force
 
         # Move Recovery back to Windows
+        Write-Host -ForegroundColor Yellow "[!] Move Recovery back to Windows"
         Robocopy R:\Recovery\WindowsRE W:\Windows\System32\Recovery /E
 
         # Reset ReAgent.xml since Disk GUIDS have changed
+        Write-Host -ForegroundColor Yellow "[!] Reset ReAgent.xml"
         $ReAgentXml | Out-File -FilePath $ReAgentXmlPath -Encoding UTF8 -Force
 
         # Cleanup existing Recovery Partition but leave the tag
+        Write-Host -ForegroundColor Yellow "[!] Cleanup existing Recovery Partition but leave the tag"
         Remove-Item -Path R:\Recovery -Force -Recurse
 
         # Set Boot Partition
+        Write-Host -ForegroundColor Yellow "[!] W:\Windows\System32\bcdboot.exe W:\Windows /v /p"
         W:\Windows\System32\bcdboot.exe W:\Windows /v /p
 
         # Capture FFU
+        Write-Host -ForegroundColor Yellow "[!] DISM.exe /Capture-FFU /ImageFile=$ImageRoot\capture.ffu /CaptureDrive=\\.\PhysicalDrive0 /Name:disk0 /Description:`"$ImageDescription`""
         DISM.exe /Capture-FFU /ImageFile=$ImageRoot\capture.ffu /CaptureDrive=\\.\PhysicalDrive0 /Name:disk0 /Description:"$ImageDescription"
 
         # Enable Balanced Power Plan
+        Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e"
         powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e
 
         # Optimize FFU
