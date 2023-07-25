@@ -101,12 +101,12 @@ $ReAgentXml = @'
 
 if ($env:SystemDrive -eq 'X:') {
     if (Test-Path "$ImageRoot\1-SYSTEM.wim") {
+        Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
+        powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+
         $DiskpartScript | Out-File X:\CreatePartitions-UEFI.txt -Encoding ASCII
         Write-Host -ForegroundColor Yellow "[!] DiskPart /s X:\CreatePartitions-UEFI.txt"
         DiskPart /s X:\CreatePartitions-UEFI.txt
-
-        Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
-        powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 
         Write-Host -ForegroundColor Yellow "[!] Expand-WindowsImage -ApplyPath S:\ -ImagePath `"$ImageRoot\1-SYSTEM.wim`" -Index 1"
         Expand-WindowsImage -ApplyPath S:\ -ImagePath "$ImageRoot\1-SYSTEM.wim" -Index 1

@@ -15,22 +15,6 @@ $ImageRoot = 'Z:\EliteBook860-5CG3270RZK'
 # Target Disk
 $DiskNumber = 0
 
-#Partition 1
-$EfiSize = 260
-$EfiLabel = 'System'
-
-#Partition 2 is MSR
-
-#Partition 3 is the OS
-$WindowsLabel = 'Windows'
-$WindowsDriveLetter = 'W'
-
-$ShrinkSize = 982
-
-#Partition 4
-$Partition4Size = 982
-$Partition4Label = 'Windows RE'
-
 $DiskpartScript = @"
 select disk $DiskNumber
 clean
@@ -42,14 +26,15 @@ if ($env:SystemDrive -eq 'X:') {
     DiskPart /s X:\CreatePartitions-UEFI.txt
 
     if (Test-Path "$ImageRoot\image.ffu") {
-
-        # Enable High Performance Power Plan
+        Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
         powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 
         # Apply FFU
-        DISM.exe /Apply-FFU /ImageFile=$ImageRoot\image.ffu /ApplyDrive=\\.\PhysicalDrive0
+        Write-Host -ForegroundColor Yellow "[!] DISM.exe /Apply-FFU /ImageFile=$ImageRoot\image.ffu /ApplyDrive=\\.\PhysicalDrive$DiskNumber"
+        DISM.exe /Apply-FFU /ImageFile=$ImageRoot\image.ffu /ApplyDrive=\\.\PhysicalDrive$DiskNumber
 
         # Enable Balanced Power Plan
+        Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e"
         powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e
     }
 }
