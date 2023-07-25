@@ -252,7 +252,7 @@ function Confirm-NuGet {
         Write-Host -ForegroundColor Green " $AppName $installedVersion is installed"
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red "$AppName is NOT installed or Failed to install automatically!"
         return $false
     }
@@ -277,7 +277,7 @@ function Confirm-NuGet {
             return $true
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
             Write-Host -ForegroundColor Red " Failed to set $AppName Package Source to $NuGetSrcURI"
             return $false
         }
@@ -304,7 +304,7 @@ function Confirm-WinGet {
             return $true
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
             Write-Host -ForegroundColor Red "[!] $AppName could NOT be installed!"
             return $false
         }
@@ -328,7 +328,7 @@ function Confirm-UIXaml {
     }
 
     if (-not (Confirm-NuGet)) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red "$AppName cannot be installed without NuGet"
         return $false
     }
@@ -361,7 +361,7 @@ function Confirm-UIXaml {
             Write-Host -ForegroundColor Green "$AppName NuGet Package $($UIXamlPackage.Version) has been installed"
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
             Write-Host -ForegroundColor Red " Failed to install $AppName NuGet Package!"
             return $false
         }
@@ -386,7 +386,7 @@ function Confirm-UIXaml {
         return $true
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red " $AppName was NOT registered!"
         return $false
     }
@@ -416,7 +416,7 @@ function Confirm-VCLibs140 {
     }
 
     if (-not $isElevated) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red "[!] $whoiam is NOT Elevated, cannot update or install $AppName..."
         return $false
     }
@@ -436,7 +436,7 @@ function Confirm-VCLibs140 {
         Invoke-WebRequest -UseBasicParsing -Uri $InstallerURI -OutFile $InstallerAPPX
     }
     catch {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red " Download failed : $_"
         return $false
     }
@@ -483,7 +483,7 @@ function Confirm-DesktopAppInstaller {
     }
 
     if (-not (Confirm-UIXaml)) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red "Cannot update $AppName without first updating UI.Xaml"
         return $false
     }
@@ -503,7 +503,7 @@ function Confirm-DesktopAppInstaller {
         $Releases = Invoke-WebRequest -UseBasicParsing -Uri $ReleasesJSON | ConvertFrom-Json
     }
     catch {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red " Download failed : $_"
         return $false
     }
@@ -519,7 +519,7 @@ function Confirm-DesktopAppInstaller {
     try {
         $ThisJSON = Invoke-WebRequest -UseBasicParsing -Uri "https://api.github.com/repos/$GitRepo/releases/$($Release.id)" | ConvertFrom-Json
     } catch {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red "Download failed : $_"
         return $false
     }
@@ -535,7 +535,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     Invoke-WebRequest -UseBasicParsing -Uri $asset.browser_download_url -OutFile $InstallerLicense
                 } catch {
-                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
                     Write-Host -ForegroundColor Red " Download failed : $_"
                     return $false
                 }
@@ -547,7 +547,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     Invoke-WebRequest -UseBasicParsing -Uri $asset.browser_download_url -OutFile $InstallerFile
                 } catch {
-                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
                     Write-Host -ForegroundColor Red " Download failed : $_"
                     return $false
                 }
@@ -558,7 +558,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     [string]$InstallerSHA265 = Invoke-RestMethod -Uri $asset.browser_download_url
                 } catch {
-                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
                     Write-Host -ForegroundColor Red "[!] Download failed : $_"
                 }
             }
@@ -567,17 +567,17 @@ function Confirm-DesktopAppInstaller {
     }
 
     if (-not (Test-Path -Path $InstallerLicense) -or -not (Test-Path -Path $InstallerFile) ) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red "[!] Installtion files not found"
         return $false
     }
 
     if (-not $InstallerSHA265) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red " Cannot validate installer (checksum unknown) but will continue anyway."
     } else {
         if ($InstallerSHA265.Length -ne 64) {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
             Write-Host -ForegroundColor Red " Cannot validate installer (checksum not SHA265) but will continue anyway."
         } else {
             $InstallerSHA265 = $InstallerSHA265.ToUpper()
@@ -587,7 +587,7 @@ function Confirm-DesktopAppInstaller {
                 Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
                 Write-Host -ForegroundColor Green " Installer File Integrity was confirmed with SHA256 Hash"
             } else {
-                Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+                Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
                 Write-Host -ForegroundColor Red " Installer File Integrity FAILED! File hash ($InstalerFileHash) does not match published hash ($InstallerSHA265)"
                 return $false
             }
@@ -607,12 +607,12 @@ function Confirm-DesktopAppInstaller {
         return $true
     }
     elseif ('' -eq $installedVersion) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red " $AppName was NOT installed!"
         return $false
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
         Write-Host -ForegroundColor Red "$AppName $installedVersion is still too old!"
         return $false
     }
@@ -637,7 +637,7 @@ if (Confirm-WinGet) {
         if (-not $PolicyKeys.PromptOnSecureDesktop) {
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Green -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
             Write-Host -ForegroundColor Red " Failed to disable the UAC Secure Desktop. Helper will not be able to see the screen if elevation is required"
         }
     }
