@@ -46,6 +46,8 @@ if ($env:SystemDrive -eq 'X:') {
 
     cmd.exe /c "$env:SystemDrive\deploy.cmd $DiskNumber $ImageFile"
 
+    robocopy $ImageRoot W:\sources *.*
+
     # Enable Balanced Power Plan
     Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e"
     powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e
