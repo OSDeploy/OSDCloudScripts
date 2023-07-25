@@ -1,3 +1,4 @@
+#Requires -RunAsAdministrator
 <#
 .DESCRIPTION
 This is a script that will recreate the partition structure that came on an HP EliteBook 860 G10 factory image.
@@ -6,7 +7,7 @@ https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deplo
 #>
 
 # Map to the Images
-net use Z: \\OSDHome\Data\OSDCloud\OS\HP /user:OSDHome\OSDCloud
+net use Z: \\OSDHome\Data\Images\HP /user:OSDHome\OSDCloud
 
 # Set the ImageRoot
 $ImageRoot = 'Z:\EliteBook860-5CG3270RZK'
@@ -102,6 +103,10 @@ if ($env:SystemDrive -eq 'X:') {
     DiskPart /s X:\CreatePartitions-UEFI.txt
 
     if (Test-Path "$ImageRoot\1-SYSTEM.wim") {
+        
+        # Enable High Performance Power Plan
+        powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+
         Expand-WindowsImage -ApplyPath S:\ -ImagePath "$ImageRoot\1-SYSTEM.wim" -Index 1
         Expand-WindowsImage -ApplyPath W:\ -ImagePath "$ImageRoot\3-Windows.wim" -Index 1
         Expand-WindowsImage -ApplyPath R:\ -ImagePath "$ImageRoot\4-Windows RE Tools.wim" -Index 1
@@ -121,6 +126,15 @@ if ($env:SystemDrive -eq 'X:') {
 
         # Set Boot Partition
         W:\Windows\System32\bcdboot.exe W:\Windows /v /p
+
+        # Capture FFU
+        DISM.exe /Capture-FFU /ImageFile=$ImageRoot\capture.ffu /CaptureDrive=\\.\PhysicalDrive0 /Name:disk0 /Description:"EliteBook860-5CG3270RZK"
+
+        # Enable Balanced Power Plan
+        powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e
+
+        # Optimize FFU
+        # DISM.exe /Optimize-FFU /ImageFile:"$ImageRoot\capture.ffu"
     }
 }
 else {
