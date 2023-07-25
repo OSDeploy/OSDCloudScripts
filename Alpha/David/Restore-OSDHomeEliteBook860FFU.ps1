@@ -22,10 +22,11 @@ exit
 "@
 
 if ($env:SystemDrive -eq 'X:') {
-    $DiskpartScript | Out-File X:\CreatePartitions-UEFI.txt -Encoding ASCII
-    DiskPart /s X:\CreatePartitions-UEFI.txt
-
     if (Test-Path "$ImageRoot\image.ffu") {
+        $DiskpartScript | Out-File X:\CreatePartitions-UEFI.txt -Encoding ASCII
+        Write-Host -ForegroundColor Yellow "[!] DiskPart /s X:\CreatePartitions-UEFI.txt"
+        DiskPart /s X:\CreatePartitions-UEFI.txt
+
         Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
         powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 
