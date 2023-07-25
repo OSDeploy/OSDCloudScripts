@@ -1,6 +1,9 @@
 #Requires -RunAsAdministrator
 Param()
 
+#fix TLS 1.2
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 Function Get-Symbol{
     <#
     .SYNOPSIS
@@ -293,7 +296,7 @@ function Confirm-WinGet {
         $installedVersion = $installedVersion -replace '[a-zA-Z\-]'
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
         Write-Host -ForegroundColor Yellow " $AppName is not installed. DesktopInstaller must be updated."
     }
 
@@ -322,7 +325,7 @@ function Confirm-UIXaml {
     $MaxVer = '2.7.999' # Keeps it under 2.8
 
     if (-not $isElevated) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
         Write-Host -ForegroundColor Red " $AppName cannot be installed without admin elevation!"
         return $false
     }
@@ -406,13 +409,12 @@ function Confirm-VCLibs140 {
             return $true
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Green -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
             Write-Host -ForegroundColor Yellow "$AppName $installedVersion is already installed, but does not meet the minimum $MinVer"
         }
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor Green -NoNewline
-        Write-Host -ForegroundColor Yellow " $AppName is not installed, attempting to download and install..."
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor White -NoNewline        Write-Host -ForegroundColor Yellow " $AppName is not installed, attempting to download and install..."
     }
 
     if (-not $isElevated) {
@@ -449,7 +451,7 @@ function Confirm-VCLibs140 {
         return $true
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
         Write-Host -ForegroundColor Yellow "$AppName is NOT installed!"
         return $false
     }
@@ -477,7 +479,7 @@ function Confirm-DesktopAppInstaller {
     # so that's our minimum DesktopAppInstaller version - at least the build revisons match (1251).
 
     if (-not (Confirm-VCLibs140)) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
         Write-Host -ForegroundColor Yellow " Cannot update $AppName without first updating VCLibs"
         return $false
     }
@@ -628,7 +630,7 @@ if (Confirm-WinGet) {
         Write-Host -ForegroundColor Green "[+] UAC Secure Desktop is already disabled"
     }
     elseif ($PolicyKeys.PromptOnSecureDesktop -and -not($isElevated)) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Green -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
         Write-Host -ForegroundColor Yellow " Cannot disable UAC Secure Desktop. Helper will not be able to see the screen if elevation is required"
     }
     elseif ($PolicyKeys.PromptOnSecureDesktop -and $isElevated) {
