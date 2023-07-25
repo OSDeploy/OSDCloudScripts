@@ -255,7 +255,7 @@ function Confirm-NuGet {
         Write-Host -ForegroundColor Green " $AppName $installedVersion is installed"
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red "$AppName is NOT installed or Failed to install automatically!"
         return $false
     }
@@ -280,7 +280,7 @@ function Confirm-NuGet {
             return $true
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
             Write-Host -ForegroundColor Red " Failed to set $AppName Package Source to $NuGetSrcURI"
             return $false
         }
@@ -296,24 +296,25 @@ function Confirm-WinGet {
         $installedVersion = $installedVersion -replace '[a-zA-Z\-]'
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Yellow -NoNewline
         Write-Host -ForegroundColor Yellow " $AppName is not installed. DesktopInstaller must be updated."
     }
 
     if (Confirm-DesktopAppInstaller) {
         if ($installedVersion = Get-InstalledVersion -AppName WinGet) {
             Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-            Write-Host -ForegroundColor Green "[+] $AppName $installedVersion has been installed"
+            Write-Host -ForegroundColor Green " $AppName $installedVersion has been installed"
             return $true
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
-            Write-Host -ForegroundColor Red "[!] $AppName could NOT be installed!"
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
+            Write-Host -ForegroundColor Red " $AppName could NOT be installed!"
             return $false
         }
     }
     else {
-        Write-Host -ForegroundColor Red "[!] DesktopAppInstaller could NOT be updated to install WinGet!"
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
+        Write-Host -ForegroundColor Red " DesktopAppInstaller could NOT be updated to install WinGet!"
         return $false
     }
 
@@ -325,13 +326,13 @@ function Confirm-UIXaml {
     $MaxVer = '2.7.999' # Keeps it under 2.8
 
     if (-not $isElevated) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Yellow -NoNewline
         Write-Host -ForegroundColor Red " $AppName cannot be installed without admin elevation!"
         return $false
     }
 
     if (-not (Confirm-NuGet)) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red "$AppName cannot be installed without NuGet"
         return $false
     }
@@ -341,7 +342,7 @@ function Confirm-UIXaml {
     if ($installedVersion = $UIXamlPackage.Version) {
         if ([version]$installedVersion -ge [version]$MinVer -and [version]$installedVersion -le [version]$MaxVer) {
             Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-            Write-Host -ForegroundColor Green " $AppName NuGet Package $installedVersion is already installed but needs to be registered for $whoiam"
+            Write-Host -ForegroundColor Green " $AppName NuGet Package $installedVersion is already installed but needs to be registeRed for $whoiam"
         }
         else {
             Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
@@ -354,7 +355,7 @@ function Confirm-UIXaml {
         #Find-Package -Name $PkgName
         Write-Host ("{0}" -f (Get-Symbol -Symbol Script)) -ForegroundColor Green -NoNewline
         Write-Host -ForegroundColor Yellow "Installing $AppName NuGet Package ..."
-        #Install-Package -Name $PkgName -RequiredVersion $MaxVer -Force | Out-Null
+        #Install-Package -Name $PkgName -RequiRedVersion $MaxVer -Force | Out-Null
         Install-Package -Name $PkgName -MinimumVersion $MinVer -MaximumVersion $MaxVer -Force -Source Nuget | Out-Null
 
         # check our work
@@ -364,7 +365,7 @@ function Confirm-UIXaml {
             Write-Host -ForegroundColor Green "$AppName NuGet Package $($UIXamlPackage.Version) has been installed"
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
             Write-Host -ForegroundColor Red " Failed to install $AppName NuGet Package!"
             return $false
         }
@@ -385,18 +386,18 @@ function Confirm-UIXaml {
     # check our work...
     if ($installedVersion = Get-InstalledVersion -AppName UIXaml) {
         Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-        Write-Host -ForegroundColor Green " $AppName has been registered using $installedVersion"
+        Write-Host -ForegroundColor Green " $AppName has been registeRed using $installedVersion"
         return $true
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
-        Write-Host -ForegroundColor Red " $AppName was NOT registered!"
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
+        Write-Host -ForegroundColor Red " $AppName was NOT registeRed!"
         return $false
     }
 }
 function Confirm-VCLibs140 {
     $AppName = "VCLibs"
-    # NOTE: The DesktopAppInstaller package has changed its minimum required version which caused this to incorrectly
+    # NOTE: The DesktopAppInstaller package has changed its minimum requiRed version which caused this to incorrectly
     # accept older versions of VCLibs and fail to install. I may need to come up with a way of determining the
     # dependacies from that app manifest rather than statically defining the version here.
     $MinVer = '14.0.30704.0'
@@ -405,11 +406,11 @@ function Confirm-VCLibs140 {
         Write-Host -ForegroundColor Green "[+] $AppName $installedVersion is already installed"
         if ([version]$installedVersion -ge [version]$MinVer) {
             Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-            Write-Host -ForegroundColor Green "$AppName $installedVersion meets the mnimum required $MinVer"
+            Write-Host -ForegroundColor Green "$AppName $installedVersion meets the mnimum requiRed $MinVer"
             return $true
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Yellow -NoNewline
             Write-Host -ForegroundColor Yellow "$AppName $installedVersion is already installed, but does not meet the minimum $MinVer"
         }
     }
@@ -418,7 +419,7 @@ function Confirm-VCLibs140 {
     }
 
     if (-not $isElevated) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red "[!] $whoiam is NOT Elevated, cannot update or install $AppName..."
         return $false
     }
@@ -438,7 +439,7 @@ function Confirm-VCLibs140 {
         Invoke-WebRequest -UseBasicParsing -Uri $InstallerURI -OutFile $InstallerAPPX
     }
     catch {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red " Download failed : $_"
         return $false
     }
@@ -451,7 +452,7 @@ function Confirm-VCLibs140 {
         return $true
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Yellow -NoNewline
         Write-Host -ForegroundColor Yellow "$AppName is NOT installed!"
         return $false
     }
@@ -479,13 +480,13 @@ function Confirm-DesktopAppInstaller {
     # so that's our minimum DesktopAppInstaller version - at least the build revisons match (1251).
 
     if (-not (Confirm-VCLibs140)) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Yellow -NoNewline
         Write-Host -ForegroundColor Yellow " Cannot update $AppName without first updating VCLibs"
         return $false
     }
 
     if (-not (Confirm-UIXaml)) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red "Cannot update $AppName without first updating UI.Xaml"
         return $false
     }
@@ -505,7 +506,7 @@ function Confirm-DesktopAppInstaller {
         $Releases = Invoke-WebRequest -UseBasicParsing -Uri $ReleasesJSON | ConvertFrom-Json
     }
     catch {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red " Download failed : $_"
         return $false
     }
@@ -521,7 +522,7 @@ function Confirm-DesktopAppInstaller {
     try {
         $ThisJSON = Invoke-WebRequest -UseBasicParsing -Uri "https://api.github.com/repos/$GitRepo/releases/$($Release.id)" | ConvertFrom-Json
     } catch {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red "Download failed : $_"
         return $false
     }
@@ -537,7 +538,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     Invoke-WebRequest -UseBasicParsing -Uri $asset.browser_download_url -OutFile $InstallerLicense
                 } catch {
-                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
                     Write-Host -ForegroundColor Red " Download failed : $_"
                     return $false
                 }
@@ -549,7 +550,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     Invoke-WebRequest -UseBasicParsing -Uri $asset.browser_download_url -OutFile $InstallerFile
                 } catch {
-                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
                     Write-Host -ForegroundColor Red " Download failed : $_"
                     return $false
                 }
@@ -560,7 +561,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     [string]$InstallerSHA265 = Invoke-RestMethod -Uri $asset.browser_download_url
                 } catch {
-                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+                    Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
                     Write-Host -ForegroundColor Red "[!] Download failed : $_"
                 }
             }
@@ -569,17 +570,17 @@ function Confirm-DesktopAppInstaller {
     }
 
     if (-not (Test-Path -Path $InstallerLicense) -or -not (Test-Path -Path $InstallerFile) ) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red "[!] Installtion files not found"
         return $false
     }
 
     if (-not $InstallerSHA265) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red " Cannot validate installer (checksum unknown) but will continue anyway."
     } else {
         if ($InstallerSHA265.Length -ne 64) {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
             Write-Host -ForegroundColor Red " Cannot validate installer (checksum not SHA265) but will continue anyway."
         } else {
             $InstallerSHA265 = $InstallerSHA265.ToUpper()
@@ -589,7 +590,7 @@ function Confirm-DesktopAppInstaller {
                 Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
                 Write-Host -ForegroundColor Green " Installer File Integrity was confirmed with SHA256 Hash"
             } else {
-                Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+                Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
                 Write-Host -ForegroundColor Red " Installer File Integrity FAILED! File hash ($InstalerFileHash) does not match published hash ($InstallerSHA265)"
                 return $false
             }
@@ -609,12 +610,12 @@ function Confirm-DesktopAppInstaller {
         return $true
     }
     elseif ('' -eq $installedVersion) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red " $AppName was NOT installed!"
         return $false
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
+        Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
         Write-Host -ForegroundColor Red "$AppName $installedVersion is still too old!"
         return $false
     }
@@ -625,22 +626,22 @@ function Confirm-DesktopAppInstaller {
 if (Confirm-WinGet) {
     # Disable UAC Secure Desktop
     $PolicyKeys = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\' -ErrorAction SilentlyContinue
-    if (-not $PolicyKeys.PromptOnSecureDesktop) {
+    if (-not $PolicyKeys.PromptOnSecuRedesktop) {
         Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
         Write-Host -ForegroundColor Green "[+] UAC Secure Desktop is already disabled"
     }
-    elseif ($PolicyKeys.PromptOnSecureDesktop -and -not($isElevated)) {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor yellow -NoNewline
-        Write-Host -ForegroundColor Yellow " Cannot disable UAC Secure Desktop. Helper will not be able to see the screen if elevation is required"
+    elseif ($PolicyKeys.PromptOnSecuRedesktop -and -not($isElevated)) {
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Yellow -NoNewline
+        Write-Host -ForegroundColor Yellow " Cannot disable UAC Secure Desktop. Helper will not be able to see the screen if elevation is requiRed"
     }
-    elseif ($PolicyKeys.PromptOnSecureDesktop -and $isElevated) {
-        Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\' -Name PromptOnSecureDesktop -Value 0 -ErrorAction SilentlyContinue
+    elseif ($PolicyKeys.PromptOnSecuRedesktop -and $isElevated) {
+        Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\' -Name PromptOnSecuRedesktop -Value 0 -ErrorAction SilentlyContinue
         $PolicyKeys = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\' -ErrorAction SilentlyContinue
-        if (-not $PolicyKeys.PromptOnSecureDesktop) {
+        if (-not $PolicyKeys.PromptOnSecuRedesktop) {
         }
         else {
-            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor red -NoNewline
-            Write-Host -ForegroundColor Red " Failed to disable the UAC Secure Desktop. Helper will not be able to see the screen if elevation is required"
+            Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
+            Write-Host -ForegroundColor Red " Failed to disable the UAC Secure Desktop. Helper will not be able to see the screen if elevation is requiRed"
         }
     }
 
