@@ -256,7 +256,7 @@ function Confirm-NuGet {
     }
     else {
         Write-Host ("{0}" -f (Get-Symbol -Symbol RedX)) -ForegroundColor Red -NoNewline
-        Write-Host -ForegroundColor Red "$AppName is NOT installed or Failed to install automatically!"
+        Write-Host -ForegroundColor Red " $AppName is NOT installed or Failed to install automatically!"
         return $false
     }
 
@@ -266,7 +266,7 @@ function Confirm-NuGet {
 
     if ($NuGetSource.Location -EQ $NuGetSrcURI) {
         Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-        Write-Host -ForegroundColor Green "$AppName Package Source is already set to $NuGetSrcURI"
+        Write-Host -ForegroundColor Green " $AppName Package Source is already set to $NuGetSrcURI"
         return $true
     }
     else {
@@ -346,7 +346,7 @@ function Confirm-UIXaml {
         }
         else {
             Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-            Write-Host -ForegroundColor Green "[+] $AppName NuGet Package $installedVersion is already installed but is not within versions $MinVer to $maxVer"
+            Write-Host -ForegroundColor Green " $AppName NuGet Package $installedVersion is already installed but is not within versions $MinVer to $maxVer"
             $installedVersion = $null
         }
     }
