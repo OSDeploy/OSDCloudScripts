@@ -4,8 +4,14 @@ This is a script that will recreate the partition structure that came on an HP E
 .LINK
 https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deployment-of-windows-desktop-editions-sample-scripts?preserve-view=true&view=windows-10#-createpartitions-uefitxt
 #>
-$ImageRoot = 'E:\OSDCloud\OS\HP\EliteBook860-5CG3270RZK'
 
+# Map to the Images
+net use Z: \\OSDHome\Data\OS\HP /user:OSDHome\OSDCloud
+
+# Set the ImageRoot
+$ImageRoot = 'Z:\EliteBook860-5CG3270RZK'
+
+# Target Disk
 $DiskNumber = 0
 
 #Partition 1
@@ -16,7 +22,7 @@ $EfiLabel = 'System'
 
 #Partition 3 is the OS
 $WindowsLabel = 'Windows'
-$WindowsDriveLetter = 'C'
+$WindowsDriveLetter = 'W'
 
 $ShrinkSize = 982
 
@@ -63,7 +69,7 @@ list volume
 exit
 "@
 
-$ReAgentXmlPath = 'C:\Windows\System32\Recovery\ReAgent.xml'
+$ReAgentXmlPath = 'W:\Windows\System32\Recovery\ReAgent.xml'
 
 $ReAgentXml = @'
 <?xml version='1.0' encoding='utf-8'?>
@@ -97,24 +103,24 @@ if ($env:SystemDrive -eq 'X:') {
 
     if (Test-Path "$ImageRoot\1-SYSTEM.wim") {
         Expand-WindowsImage -ApplyPath S:\ -ImagePath "$ImageRoot\1-SYSTEM.wim" -Index 1
-        Expand-WindowsImage -ApplyPath C:\ -ImagePath "$ImageRoot\3-Windows.wim" -Index 1
+        Expand-WindowsImage -ApplyPath W:\ -ImagePath "$ImageRoot\3-Windows.wim" -Index 1
         Expand-WindowsImage -ApplyPath R:\ -ImagePath "$ImageRoot\4-Windows RE Tools.wim" -Index 1
 
         # Cleanup System Partition
-        Remove-Item -Path S:\Boot -Recurse -Force
-        Remove-Item -Path S:\Microsoft -Recurse -Force
+        Remove-Item -Path S:\EFI\Boot -Recurse -Force
+        Remove-Item -Path S:\EFI\Microsoft -Recurse -Force
 
         # Move Recovery back to Windows
-        Robocopy R:\Recovery\WindowsRE C:\Windows\System32\Recovery /E
+        Robocopy R:\Recovery\WindowsRE W:\Windows\System32\Recovery /E
 
-        # Reset ReAgent.xml
+        # Reset ReAgent.xml since Disk GUIDS have changed
         $ReAgentXml | Out-File -FilePath $ReAgentXmlPath -Encoding UTF8 -Force
 
-        # Cleanup Recovery Partition
+        # Cleanup existing Recovery Partition but leave the tag
         Remove-Item -Path R:\Recovery -Force -Recurse
 
         # Set Boot Partition
-        C:\Windows\System32\bcdboot.exe C:\Windows /v /p
+        W:\Windows\System32\bcdboot.exe W:\Windows /v /p
     }
 }
 else {
