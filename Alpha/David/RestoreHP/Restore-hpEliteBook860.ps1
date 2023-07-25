@@ -7,8 +7,8 @@ https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deplo
 #>
 if ($env:SystemDrive -eq 'X:') {
     # Set the ImageRoot and ImageDescription
-    $ImageRoot = 'D:\HP\Images\Firefly16P-5CG3281NM4'
-    $ImageDescription = 'Firefly16P-5CG3281NM4'
+    $ImageRoot = 'E:\HP\Images\EliteBook860-5CG3270RZK'
+    $ImageDescription = 'EliteBook860-5CG3270RZK'
 
     # Target Disk
     $DiskNumber = 0
