@@ -6,9 +6,13 @@ This is a script that will recreate the partition structure that came on an HP E
 https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deployment-of-windows-desktop-editions-sample-scripts?preserve-view=true&view=windows-10#-createpartitions-uefitxt
 #>
 if ($env:SystemDrive -eq 'X:') {
+
+    # Map to the Images
+    net use Z: \\OSDHome\Data\HP\Images /user:OSDHome\OSDCloud
+
     # Set the ImageRoot and ImageDescription
-    $ImageRoot = 'D:\HP\Images\Firefly14-5CG3281YVJ'
-    $ImageDescription = 'Firefly14-5CG3281YVJ'
+    $ImageRoot = 'Z:\EliteBook860-5CG3270RZK'
+    $ImageDescription = 'EliteBook860-5CG3270RZK'
 
     # Target Disk
     $DiskNumber = 0

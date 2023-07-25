@@ -6,12 +6,8 @@ This is a script that will recreate the partition structure that came on an HP E
 https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deployment-of-windows-desktop-editions-sample-scripts?preserve-view=true&view=windows-10#-createpartitions-uefitxt
 #>
 if ($env:SystemDrive -eq 'X:') {
-
-    # Map to the Images
-    net use Z: \\OSDHome\Data\Images\HP /user:OSDHome\OSDCloud
-
     # Set the ImageRoot and ImageDescription
-    $ImageRoot = 'Z:\EliteBook830-5CG325677M'
+    $ImageRoot = 'D:\HP\Images\EliteBook830-5CG325677M'
     $ImageDescription = 'EliteBook830-5CG325677M'
 
     # Target Disk

@@ -8,11 +8,11 @@ https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deplo
 if ($env:SystemDrive -eq 'X:') {
 
     # Map to the Images
-    net use Z: \\OSDHome\Data\Images\HP /user:OSDHome\OSDCloud
+    net use Z: \\OSDHome\Data\HP\Images /user:OSDHome\OSDCloud
 
     # Set the ImageRoot and ImageDescription
-    $ImageRoot = 'Z:\Z2Mini-MXL3293B7G'
-    $ImageDescription = 'Z2Mini-MXL3293B7G'
+    $ImageRoot = 'Z:\Firefly14-5CG3281YVJ'
+    $ImageDescription = 'Firefly14-5CG3281YVJ'
 
     # Target Disk
     $DiskNumber = 0
