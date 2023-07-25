@@ -403,19 +403,20 @@ function Confirm-VCLibs140 {
     $MinVer = '14.0.30704.0'
 
     if ($installedVersion = Get-InstalledVersion -AppName VCLibs140) {
-        Write-Host -ForegroundColor Green "[+] $AppName $installedVersion is already installed"
+        Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor green -NoNewline
+        Write-Host -ForegroundColor Green " $AppName $installedVersion is already installed"
         if ([version]$installedVersion -ge [version]$MinVer) {
             Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-            Write-Host -ForegroundColor Green "$AppName $installedVersion meets the mnimum requiRed $MinVer"
+            Write-Host -ForegroundColor Green " $AppName $installedVersion meets the mnimum requiRed $MinVer"
             return $true
         }
         else {
             Write-Host ("{0}" -f (Get-Symbol -Symbol Information)) -ForegroundColor Yellow -NoNewline
-            Write-Host -ForegroundColor Yellow "$AppName $installedVersion is already installed, but does not meet the minimum $MinVer"
+            Write-Host -ForegroundColor Yellow " $AppName $installedVersion is already installed, but does not meet the minimum $MinVer"
         }
     }
     else {
-        Write-Host ("{0}" -f (Get-Symbol -Symbol Cloud)) -ForegroundColor White -NoNewline        
+        Write-Host ("{0}" -f (Get-Symbol -Symbol Alert)) -ForegroundColor Red -NoNewline        
         Write-Host -ForegroundColor Yellow " $AppName is not installed, attempting to download and install..."
     }
 
@@ -707,6 +708,7 @@ Start-Sleep -Seconds 2
 
 }
 else {
-    Write-Host -ForegroundColor Red "[!] settings.json not found"
+    Write-Host ("{0}{1}" -f (Get-Symbol -Symbol RedX),"settings.json not found") -ForegroundColor Red -NoNewline
+
 }
 #endregion
