@@ -148,7 +148,7 @@ if ($env:SystemDrive -eq 'X:') {
         powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e
 
         # Optimize FFU
-        # DISM.exe /Optimize-FFU /ImageFile:"$ImageRoot\capture.ffu"
+        # DISM.exe /Optimize-FFU /ImageFile:"D:\Images\HP\Firefly14-5CG3281YVJ\capture.ffu"
     }
 }
 else {
