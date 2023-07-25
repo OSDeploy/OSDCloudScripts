@@ -17,19 +17,22 @@ if ($env:SystemDrive -eq 'X:') {
     # Target Disk
     $DiskNumber = 0
 
-    $ImageFile = Get-ChildItem -Path $ImageRoot *.wim -File | Select-Object -ExpandProperty FullName
+    $ImageFiles = Get-ChildItem -Path $ImageRoot -File
+    $ImageFile = $ImageFiles | Where-Object {$_.Extension -eq '.wim'} | Select-Object -ExpandProperty FullName
+    $DeployCommand = $ImageFiles | Where-Object {$_.Name -eq 'deploy.cmd'} | Select-Object -ExpandProperty FullName
+    $DiskpartScript = $ImageFiles | Where-Object {$_.Name -eq 'ReCreatePartitions.txt'} | Select-Object -ExpandProperty FullName
 
     if (-not ($ImageFile)) {
         Write-Host -ForegroundColor Red "[!] Could not find a WIM file to restore"
         Break
     }
 
-    if (-not (Test-Path "$ImageRoot\deploy.cmd")) {
+    if (-not ($DeployCommand)) {
         Write-Host -ForegroundColor Red "[!] Could not find deploy.cmd"
         Break
     }
 
-    if (-not (Test-Path "$ImageRoot\ReCreatePartitions.txt")) {
+    if (-not ($DiskpartScript)) {
         Write-Host -ForegroundColor Red "[!] Could not find ReCreatePartitions.txt"
         Break
     }
@@ -38,7 +41,10 @@ if ($env:SystemDrive -eq 'X:') {
     Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
     powercfg.exe -SetActive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 
-    cmd.exe /c "$ImageRoot\deploy.cmd $DiskNumber $ImageFile"
+    Copy-Item -Path $DeployCommand -Destination "$env:SystemDrive\deploy.cmd" -Force
+    Copy-Item -Path $DiskpartScript -Destination "$env:SystemDrive\ReCreatePartitions.txt" -Force
+
+    cmd.exe /c "$env:SystemDrive\deploy.cmd $DiskNumber $ImageFile"
 
     # Enable Balanced Power Plan
     Write-Host -ForegroundColor Green "[+] powercfg.exe -SetActive 381b4222-f694-41f0-9685-ff5bb260df2e"
