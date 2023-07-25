@@ -6,7 +6,7 @@ https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deplo
 #>
 
 # Map to the Images
-net use Z: \\OSDHome\Data\OS\HP /user:OSDHome\OSDCloud
+net use Z: \\OSDHome\Data\OSDCloud\OS\HP /user:OSDHome\OSDCloud
 
 # Set the ImageRoot
 $ImageRoot = 'Z:\EliteBook860-5CG3270RZK'
