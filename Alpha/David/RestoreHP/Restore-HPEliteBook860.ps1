@@ -11,8 +11,8 @@ if ($env:SystemDrive -eq 'X:') {
     net use Z: \\OSDHome\Data\Images\HP /user:OSDHome\OSDCloud
 
     # Set the ImageRoot and ImageDescription
-    $ImageRoot = 'Z:\EliteBook830-5CG325677M'
-    $ImageDescription = 'EliteBook830-5CG325677M'
+    $ImageRoot = 'Z:\EliteBook860-5CG3270RZK'
+    $ImageDescription = 'EliteBook860-5CG3270RZK'
 
     # Target Disk
     $DiskNumber = 0
