@@ -7,7 +7,7 @@ https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deplo
 #>
 
 # Map to the Images
-net use Z: \\OSDHome\Data\Images\HP /user:OSDHome\OSDCloud
+net use Z: \\hpZ2Mini\Data\Images\HP /user:hpZ2Mini\OSDCloud
 
 # Set the ImageRoot and ImageDescription
 $ImageRoot = 'Z:\Z2Mini-MXL3293B7G'
