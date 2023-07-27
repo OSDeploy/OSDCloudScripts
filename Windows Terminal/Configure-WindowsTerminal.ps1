@@ -8,7 +8,8 @@
 
 .NOTES
     Author: Jérôme Bezet-Torres
-    Modified: 2023-07-16
+    Information: requires Windows 11 22H2
+    Modified: 2023-07-27
 #>
 New-Item -Path HKCU:\Console\%%Startup | out-null
 
