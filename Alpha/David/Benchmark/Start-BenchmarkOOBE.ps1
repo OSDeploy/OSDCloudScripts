@@ -22,8 +22,9 @@ else {
 # Open Geekbench
 & 'C:\Program Files (x86)\Geekbench 6\Geekbench 6.exe'
 
-powercfg /setactive a1841308-3541-4fab-bc81-f71556f20b4a
-Write-Host -ForegroundColor Green "1/4 PowerSaver Power Plan is enabled"
+# Always start with this first since it's the most intensive
+powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+Write-Host -ForegroundColor Green "1/4 HighPerformance Power Plan is enabled"
 
 Pause
 
@@ -32,8 +33,8 @@ Write-Host -ForegroundColor Green "2/4 Balanced Power Plan is enabled"
 
 Pause
 
-powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
-Write-Host -ForegroundColor Green "3/4 HighPerformance Power Plan is enabled"
+powercfg /setactive a1841308-3541-4fab-bc81-f71556f20b4a
+Write-Host -ForegroundColor Green "3/4 PowerSaver Power Plan is enabled"
 
 Pause
 
