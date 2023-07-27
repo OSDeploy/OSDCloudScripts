@@ -36,12 +36,8 @@ $Testvar,
 
 [Parameter()]
 [AllowNull()]
-[AllowEmptyCollection()]
-[AllowEmptyString()]
-[ValidateScript({$true})]
-[ValidateRange(0,5)]
-[int]
-$Testvar2
+[ValidateSet('Startup', 'Shutdown', 'LogOn', 'LogOff')]
+[String]$Testvar2
 
 
 
