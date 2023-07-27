@@ -1,9 +1,22 @@
+<#PSScriptInfo
+.VERSION 23.7.27.5
+.GUID 2b8c910c-6a09-4b82-b95e-f676511a2277
+.AUTHOR David Segura
+.COMPANYNAME David Segura
+.COPYRIGHT (c) 2023 David Segura. All rights reserved.
+.TAGS WinGet
+.LICENSEURI 
+.PROJECTURI https://github.com/OSDeploy/PwshHub
+.ICONURI 
+.EXTERNALMODULEDEPENDENCIES 
+.REQUIREDSCRIPTS 
+.EXTERNALSCRIPTDEPENDENCIES 
+.RELEASENOTES
+#>
 <#
 .DESCRIPTION
-    Configure Windows Terminal with PowerShell as default shell
-
+This script will install NuGet
 .LINK
-    https://support.microsoft.com/en-us/windows/command-prompt-and-windows-powershell-for-windows-11-6453ce98-da91-476f-8651-5c14d5777c20
 
 .NOTES
     Author: David Segura
