@@ -1,3 +1,24 @@
+<#PSScriptInfo
+.VERSION 23.7.27.2
+.GUID 07e82d88-755f-4160-95c7-db11c8f0c633
+.AUTHOR Jerome Bezet-Torres
+.COMPANYNAME Jérôme Bezet-Torres
+.COPYRIGHT (c) 2023 Jérôme Bezet-Torres. All rights reserved.
+.TAGS OSD OSDCloud VMware
+.LICENSEURI 
+.PROJECTURI 
+.ICONURI 
+.EXTERNALMODULEDEPENDENCIES 
+.REQUIREDSCRIPTS 
+.EXTERNALSCRIPTDEPENDENCIES 
+.RELEASENOTES
+#>
+<#
+.DESCRIPTION
+This script will search the an OSDCloud Workspace for the latest ISO and create a VMware Workstation VM
+#>
+[CmdletBinding()]
+param()
 #Requires -Modules @{ ModuleName="vmxtoolkit"; ModuleVersion="4.5.3.1" }
 #Requires -PSEdition Core
 
