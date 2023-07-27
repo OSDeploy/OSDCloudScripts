@@ -1,6 +1,26 @@
-#-Requires RunAsAdministrator
-# https://github.com/HarmVeenstra/Powershellisfun/tree/main/Search%20Windows%20Event%20log
-# https://powershellisfun.com/2023/07/03/searching-windows-event-logs-using-powershell/
+<#PSScriptInfo
+.VERSION 23.7.27.3
+.GUID 38b752be-e1e1-453e-b7f4-3200b8382387
+.AUTHOR David Segura
+.COMPANYNAME David Segura
+.COPYRIGHT (c) 2023 David Segura. All rights reserved.
+.TAGS WinGet
+.LICENSEURI 
+.PROJECTURI 
+.ICONURI 
+.EXTERNALMODULEDEPENDENCIES 
+.REQUIREDSCRIPTS 
+.EXTERNALSCRIPTDEPENDENCIES 
+.RELEASENOTES
+#>
+#Requires -RunAsAdministrator
+<#
+.DESCRIPTION
+This script will search the Windows Event log for a specific EventID, Eventlog name, or string
+.LINK
+https://github.com/HarmVeenstra/Powershellisfun/tree/main/Search%20Windows%20Event%20log
+https://powershellisfun.com/2023/07/03/searching-windows-event-logs-using-powershell/
+#>
 
 function Search-Eventlog {
     [CmdletBinding(DefaultParameterSetName = 'All')]

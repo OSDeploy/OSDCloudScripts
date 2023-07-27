@@ -1,5 +1,5 @@
 <#PSScriptInfo
-.VERSION 23.6.1.2
+.VERSION 23.7.27.3
 .GUID c3f0cde1-d1af-4832-9135-aa3f99466f6c
 .AUTHOR David Segura
 .COMPANYNAME David Segura
@@ -13,7 +13,6 @@
 .EXTERNALSCRIPTDEPENDENCIES 
 .RELEASENOTES
 #>
-#Requires -RunAsAdministrator
 <#
 .DESCRIPTION
 This script will enable the Windows Optional Feature Microsoft-Hyper-V-All
