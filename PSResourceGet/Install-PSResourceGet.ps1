@@ -1,19 +1,6 @@
-<#PSScriptInfo
-.VERSION 23.6.9.1
-.GUID f2a7a989-2955-46ef-973d-b979ed892b9b
-.AUTHOR David Segura
-.COMPANYNAME David Segura
-.COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS PSResourceGet
-.LICENSEURI 
-.PROJECTURI https://github.com/powershell/psresourceget
-.ICONURI 
-.EXTERNALMODULEDEPENDENCIES 
-.REQUIREDSCRIPTS 
-.EXTERNALSCRIPTDEPENDENCIES 
-.RELEASENOTES
-#>
 <#
+.SYNOPSIS
+Installs the latest version of the PSResourceGet module.
 .DESCRIPTION
 Microsoft.PowerShell.PSResourceGet is a continuation of the PowerShellGet 3.0 project.
 The first preview release of this module under the new name is now available on the PowerShell Gallery.

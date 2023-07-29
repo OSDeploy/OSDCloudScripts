@@ -8,7 +8,9 @@
     Author: David Segura
     Modified: 2023-07-28
 #>
-$Source = "https://github.com/OSDeploy/OSDCloudScripts.git"
-$Destination = "C:\Temp\OSDCloudScripts"
+# Set the location for the Git repository
+Push-Location -Path C:\Temp\OSDCloudScripts
 
-git clone $Source "$Destination"
+# Clone the repository
+git clone https://github.com/OSDeploy/OSDCloudScripts.git
+

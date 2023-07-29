@@ -14,5 +14,3 @@ if (-NOT (Test-Path $GitPath)) {
     git clone https://github.com/OSDeploy/OSDCloudScripts.git "$GitPath\OSDCloudScripts"
     git clone https://github.com/OSDeploy/OSDCloudScriptsGUI.git "$GitPath\OSDCloudScriptsGUI"
 }
-
-
