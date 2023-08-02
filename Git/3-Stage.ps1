@@ -9,5 +9,5 @@
     Modified: 2023-07-28
 #>
 # Set the location for the Git repository
-Push-Location -Path C:\Temp\OSDCloudScripts
+Set-Location -Path C:\Temp\OSDCloudScripts
 git add -A

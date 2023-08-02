@@ -1,21 +1,10 @@
-<#PSScriptInfo
-.VERSION 23.7.27.4
-.GUID 96920c50-7617-41ec-b587-210d2c73e0d2c
-.AUTHOR David Segura
-.COMPANYNAME David Segura
-.COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS WinGet
-.LICENSEURI 
-.PROJECTURI https://github.com/OSDeploy/PwshHub
-.ICONURI 
-.EXTERNALMODULEDEPENDENCIES 
-.REQUIREDSCRIPTS 
-.EXTERNALSCRIPTDEPENDENCIES 
-.RELEASENOTES
-#>
 <#
+.SYNOPSIS
+Displays the file tree of a GitHub repository.
+
 .DESCRIPTION
-This script will clone a GitHub Repo and return the Repo Tree
+This script retrieves the file tree of a specified GitHub repository and displays it in the console.
+
 .LINK
 https://docs.github.com/en/rest/git/trees?apiVersion=2022-11-28
 #>

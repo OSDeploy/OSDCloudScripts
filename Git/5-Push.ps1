@@ -1,2 +1,2 @@
-Push-Location -Path C:\Temp\OSDCloudScripts
+Set-Location -Path C:\Temp\OSDCloudScripts
 git push
