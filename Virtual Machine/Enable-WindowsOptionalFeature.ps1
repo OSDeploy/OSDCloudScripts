@@ -1,26 +1,24 @@
-<#PSScriptInfo
-.VERSION 23.7.27.3
-.GUID c3f0cde1-d1af-4832-9135-aa3f99466f6c
-.AUTHOR David Segura
-.COMPANYNAME David Segura
-.COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS WinGet
-.LICENSEURI 
-.PROJECTURI
-.ICONURI 
-.EXTERNALMODULEDEPENDENCIES 
-.REQUIREDSCRIPTS 
-.EXTERNALSCRIPTDEPENDENCIES 
-.RELEASENOTES
-#>
+#Requires -RunAsAdministrator
 <#
+.SYNOPSIS
+Enables the Microsoft Hyper-V feature on a Windows machine.
+
 .DESCRIPTION
-This script will enable the Windows Optional Feature Microsoft-Hyper-V-All
+This script checks if the Microsoft Hyper-V feature is installed on a Windows machine. If it is not installed, the script enables the feature.
+
+.PARAMETER FeatureName
+Specifies the name of the Windows feature to enable. The default value is 'Microsoft-Hyper-V-All'.
+
+.EXAMPLE
+Enable-WindowsOptionalFeature.ps1 -FeatureName 'Microsoft-Hyper-V-All'
+This example enables the Microsoft Hyper-V feature on the local machine.
+
 .LINK
 https://learn.microsoft.com/fr-fr/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v
-#>
-#Requires -RunAsAdministrator
 
+.NOTES
+This script requires administrative privileges to run.
+#>
 $FeatureName = 'Microsoft-Hyper-V-All'
 $WindowsOptionalFeature = Get-WindowsOptionalFeature -Online -FeatureName $FeatureName -ErrorAction SilentlyContinue
 if ($WindowsOptionalFeature.State -eq 'Enabled') {
