@@ -1,0 +1,2 @@
+Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile 'dotnet-install.ps1';
+./dotnet-install.ps1 -InstallDir '~/.dotnet' -Version '6.0.2' -Runtime 'dotnet' -Architecture 'x64' -NoPath -NoRegisterEnvironmentVariable -NoCdn -SkipNonVersionedFiles -NoBootstrapping -NoMachineWide -NoLog

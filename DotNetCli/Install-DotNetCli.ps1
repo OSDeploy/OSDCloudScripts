@@ -1,0 +1,3 @@
+# https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script
+# Run a separate PowerShell process because the script calls exit, so it will end the current PowerShell session.
+&powershell -NoProfile -ExecutionPolicy unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) <additional install-script args>"
