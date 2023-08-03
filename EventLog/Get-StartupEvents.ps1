@@ -1,0 +1,1 @@
+Get-WinEvent -ProviderName 'Microsoft-Windows-Kernel-Boot' | Where-Object {$_.Id -eq 27}
