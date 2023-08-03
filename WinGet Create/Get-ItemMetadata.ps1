@@ -1,6 +1,5 @@
-Function Get-ItemMetadata {
-    Param
-    (
+function Get-ItemMetadata {
+    param (
       [Parameter(Mandatory = $true)]
       [string] $FilePath
     )

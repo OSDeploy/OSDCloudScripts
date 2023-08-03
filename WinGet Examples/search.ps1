@@ -38,5 +38,5 @@ if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     # To show all of the winget packages available, use the command:
     # winget search --query ""
     #In PowerShell, you will need to escape the quotes, so this command becomes:
-    winget search -q `"`"
+    winget search -q `"HP.HPCMSL`"
 }

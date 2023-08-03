@@ -14,6 +14,6 @@ This script does not accept any parameters.
 .LINK
 https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/computer-system-hardware-classes
 #>
-Get-WmiObject -Class Win32_NetworkAdapter | Select-Object -Property *
+Get-WmiObject -Class Win32_NetworkAdapter | Where-Object {$_.NetEnabled -eq $true} | Select-Object -Property *
 Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Select-Object -Property *
 Get-WmiObject -Class Win32_NetworkAdapterSetting | Select-Object -Property *
