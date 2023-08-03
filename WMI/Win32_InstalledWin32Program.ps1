@@ -1,0 +1,1 @@
+Get-WmiObject -Class Win32_InstalledWin32Program | Select-Object -Property *

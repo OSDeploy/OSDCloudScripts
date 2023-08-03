@@ -1,7 +1,11 @@
 #Requires -RunAsAdministrator
 <#
+.SYNOPSIS
+Installs WinGet Preview
+
 .DESCRIPTION
-Installs WinGet by adding the Microsoft.DesktopAppInstaller Appx Package
+Installs WinGet Preview
+
 .LINK
 https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget
 #>

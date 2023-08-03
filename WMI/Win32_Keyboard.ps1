@@ -1,0 +1,1 @@
+Get-WmiObject -Class Win32_Keyboard | Select-Object -Property *

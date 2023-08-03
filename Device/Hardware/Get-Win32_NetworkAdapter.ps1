@@ -1,1 +1,0 @@
-Get-WmiObject -Class Win32_NetworkAdapter | Select-Object * | Where-Object GUID

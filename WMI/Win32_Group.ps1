@@ -1,0 +1,1 @@
+Get-WmiObject -Class Win32_Group | Select-Object -Property *
