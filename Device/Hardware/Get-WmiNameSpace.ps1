@@ -1,0 +1,149 @@
+function Get-WmiNameSpace {
+    param(
+        $NameSpace = 'root',
+        $Computer = 'localhost'
+    )
+
+    Get-WmiObject -Class __NameSpace -NameSpace $NameSpace -ErrorAction SilentlyContinue | ForEach-Object -Process {
+        $subns = Join-Path -Path $_.__NameSpace -ChildPath $_.Name
+        
+        #Following line skips the root\directory & root\directory\LDAP NameSpaces
+        if ($subns -notmatch 'directory') {
+            $subns
+        }
+        $NameSpaces += $subns + "`r`n"
+        Get-WmiNameSpace -NameSpace $subNS -computer $computer
+    }
+}
+Get-WmiNameSpace
+
+<#
+ROOT\subscription
+ROOT\subscription\ms_809
+ROOT\subscription\ms_409
+ROOT\DEFAULT
+ROOT\DEFAULT\ms_809
+ROOT\DEFAULT\ms_409
+ROOT\CIMV2
+ROOT\CIMV2\mdm
+ROOT\CIMV2\mdm\dmmap
+ROOT\CIMV2\mdm\MS_809
+ROOT\CIMV2\mdm\MS_409
+ROOT\CIMV2\Security
+ROOT\CIMV2\Security\MicrosoftTpm
+ROOT\CIMV2\Security\MicrosoftVolumeEncryption
+ROOT\CIMV2\ms_809
+ROOT\CIMV2\power
+ROOT\CIMV2\power\ms_809
+ROOT\CIMV2\power\ms_409
+ROOT\CIMV2\ms_409
+ROOT\CIMV2\TerminalServices
+ROOT\CIMV2\TerminalServices\ms_809
+ROOT\CIMV2\TerminalServices\ms_409
+ROOT\msdtc
+ROOT\Cli
+ROOT\Cli\MS_809
+ROOT\Cli\MS_409
+ROOT\Intel_ME
+ROOT\SECURITY
+ROOT\HyperVCluster
+ROOT\HyperVCluster\v2
+ROOT\HyperVCluster\v2\ms_809
+ROOT\HyperVCluster\v2\ms_409
+ROOT\SecurityCenter2
+ROOT\RSOP
+ROOT\RSOP\User
+ROOT\RSOP\Computer
+ROOT\PEH
+ROOT\HP
+ROOT\HP\InstrumentedBIOS
+ROOT\ccm
+ROOT\ccm\invagt
+ROOT\MEM
+ROOT\StandardCimv2
+ROOT\StandardCimv2\MS_809
+ROOT\StandardCimv2\MS_409
+ROOT\StandardCimv2\embedded
+ROOT\StandardCimv2\embedded\MS_809
+ROOT\StandardCimv2\embedded\MS_409
+ROOT\WMI
+ROOT\WMI\ms_809
+ROOT\WMI\ms_409
+ROOT\Policy
+ROOT\Policy\ms_809
+ROOT\Policy\ms_409
+ROOT\virtualization
+ROOT\virtualization\v2
+ROOT\virtualization\v2\ms_809
+ROOT\virtualization\v2\ms_409
+ROOT\Interop
+ROOT\Interop\ms_809
+ROOT\Interop\ms_409
+ROOT\Hardware
+ROOT\Hardware\ms_809
+ROOT\Hardware\ms_409
+ROOT\ServiceModel
+ROOT\SecurityCenter
+ROOT\Microsoft
+ROOT\Microsoft\HomeNet
+ROOT\Microsoft\ProtectionManagement
+ROOT\Microsoft\Windows
+ROOT\Microsoft\Windows\RemoteAccess
+ROOT\Microsoft\Windows\RemoteAccess\Client
+ROOT\Microsoft\Windows\RemoteAccess\Client\MS_809
+ROOT\Microsoft\Windows\RemoteAccess\Client\MS_409
+ROOT\Microsoft\Windows\Dns
+ROOT\Microsoft\Windows\Dns\MS_809
+ROOT\Microsoft\Windows\Dns\MS_409
+ROOT\Microsoft\Windows\Powershellv3
+ROOT\Microsoft\Windows\Powershellv3\MS_809
+ROOT\Microsoft\Windows\Powershellv3\MS_409
+ROOT\Microsoft\Windows\Hgs
+ROOT\Microsoft\Windows\DeviceGuard
+ROOT\Microsoft\Windows\DeviceGuard\MS_809
+ROOT\Microsoft\Windows\DeviceGuard\MS_409
+ROOT\Microsoft\Windows\TaskScheduler
+ROOT\Microsoft\Windows\TaskScheduler\MS_809
+ROOT\Microsoft\Windows\TaskScheduler\MS_409
+ROOT\Microsoft\Windows\DesiredStateConfigurationProxy
+ROOT\Microsoft\Windows\SmbWitness
+ROOT\Microsoft\Windows\Wdac
+ROOT\Microsoft\Windows\Wdac\MS_809
+ROOT\Microsoft\Windows\Wdac\MS_409
+ROOT\Microsoft\Windows\winrm
+ROOT\Microsoft\Windows\AppBackgroundTask
+ROOT\Microsoft\Windows\AppBackgroundTask\MS_809
+ROOT\Microsoft\Windows\AppBackgroundTask\MS_409
+ROOT\Microsoft\Windows\PS_MMAgent
+ROOT\Microsoft\Windows\PS_MMAgent\MS_809
+ROOT\Microsoft\Windows\PS_MMAgent\MS_409
+ROOT\Microsoft\Windows\Storage
+ROOT\Microsoft\Windows\Storage\PT
+ROOT\Microsoft\Windows\Storage\PT\Alt
+ROOT\Microsoft\Windows\Storage\MS_809
+ROOT\Microsoft\Windows\Storage\MS_409
+ROOT\Microsoft\Windows\Storage\Providers_v2
+ROOT\Microsoft\Windows\HardwareManagement
+ROOT\Microsoft\Windows\HardwareManagement\MS_809
+ROOT\Microsoft\Windows\HardwareManagement\MS_409
+ROOT\Microsoft\Windows\SMB
+ROOT\Microsoft\Windows\SMB\MS_809
+ROOT\Microsoft\Windows\SMB\MS_409
+ROOT\Microsoft\Windows\EventTracingManagement
+ROOT\Microsoft\Windows\EventTracingManagement\MS_809
+ROOT\Microsoft\Windows\EventTracingManagement\MS_409
+ROOT\Microsoft\Windows\DesiredStateConfiguration
+ROOT\Microsoft\Windows\Attestation
+ROOT\Microsoft\Windows\Attestation\MS_809
+ROOT\Microsoft\Windows\Attestation\MS_409
+ROOT\Microsoft\Windows\CI
+ROOT\Microsoft\Windows\CI\MS_809
+ROOT\Microsoft\Windows\CI\MS_409
+ROOT\Microsoft\Windows\DeliveryOptimization
+ROOT\Microsoft\Windows\Defender
+ROOT\Microsoft\Windows\Defender\MS_809
+ROOT\Microsoft\Windows\Defender\MS_409
+ROOT\Microsoft\SecurityClient
+ROOT\Microsoft\Uev
+ROOT\Appv
+#>
