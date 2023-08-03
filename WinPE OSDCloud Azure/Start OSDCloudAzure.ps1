@@ -1,9 +1,22 @@
 #Requires -RunAsAdministrator
 <#
 .SYNOPSIS
+Starts OSDCloudAzure in WinPE.
 
 .DESCRIPTION
-This is a good script to see how OSDCloudAzure starts
+This script starts OSDCloudAzure in WinPE.
+It connects to the Azure account, retrieves the resources, and launches the OSDCloudAzure GUI.
+If a Windows image is available, it hands off to Invoke-OSDCloud to start the deployment process.
+
+.PARAMETER Force
+If specified, clears the cached Azure resources and forces a new retrieval.
+
+.EXAMPLE
+Start-OSDCloudAzure -Force
+Starts OSDCloudAzure in WinPE and forces a new retrieval of Azure resources.
+
+.NOTES
+This script requires elevated privileges to run. It must be run from WinPE.
 #>
 [CmdletBinding()]
 param()

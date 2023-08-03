@@ -1,18 +1,3 @@
-<#PSScriptInfo
-.VERSION 23.6.1.2
-.GUID c3f0cde1-d1af-4832-9135-aa3f99466f6c
-.AUTHOR David Segura
-.COMPANYNAME David Segura
-.COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS WinGet
-.LICENSEURI 
-.PROJECTURI https://github.com/OSDeploy/PwshHub
-.ICONURI 
-.EXTERNALMODULEDEPENDENCIES 
-.REQUIREDSCRIPTS 
-.EXTERNALSCRIPTDEPENDENCIES 
-.RELEASENOTES
-#>
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION

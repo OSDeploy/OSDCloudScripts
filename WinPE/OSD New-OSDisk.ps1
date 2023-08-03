@@ -1,23 +1,29 @@
-<#PSScriptInfo
-.VERSION 23.6.1.2
-.GUID 0ce87b09-62cd-4272-b0c5-4c76cf14b916
-.AUTHOR David Segura
-.COMPANYNAME David Segura
-.COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS WinPE
-.LICENSEURI 
-.PROJECTURI https://github.com/OSDeploy/PwshHub
-.ICONURI 
-.EXTERNALMODULEDEPENDENCIES 
-.REQUIREDSCRIPTS 
-.EXTERNALSCRIPTDEPENDENCIES 
-.RELEASENOTES
-#>
-#Requires -Modules @{ ModuleName="OSD"; ModuleVersion="23.5.26.1" }
 #Requires -RunAsAdministrator
+#Requires -Modules @{ ModuleName="OSD"; ModuleVersion="23.5.26.1" }
 <#
+.SYNOPSIS
+Creates a new disk layout for a Windows operating system.
+
 .DESCRIPTION
-Clears the Local Disk(s) and creates a new OS Disk.  Automatically selects MBR or UEFI based on the Boot method
+The New-OSDisk.ps1 script creates a new disk layout for a Windows operating system. It clears all local disks and automatically creates the partition layout with a recovery partition based on the boot method. It prompts for confirmation before clearing the disks.
+
+.PARAMETER PartitionStyle
+Specifies the partition style for the disk. Valid values are MBR and GPT. The default value is GPT.
+
+.PARAMETER NoRecoveryPartition
+Indicates that the recovery partition should not be created. This parameter is only valid when the PartitionStyle parameter is set to GPT.
+
+.EXAMPLE
+New-OSDisk.ps1
+Creates a new disk layout with a recovery partition based on the boot method.
+
+.EXAMPLE
+New-OSDisk.ps1 -PartitionStyle GPT -NoRecoveryPartition
+Creates a new disk layout without a recovery partition using the GPT partition style.
+
+.NOTES
+This script requires administrative privileges to run.
+It also requires the OSD module version 23.5.26.1 or later.
 #>
 [CmdletBinding()]
 param()

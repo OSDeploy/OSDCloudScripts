@@ -1,10 +1,59 @@
-# https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deployment-of-windows-desktop-editions-sample-scripts?preserve-view=true&view=windows-10#-createpartitions-uefitxt
+<#
+.SYNOPSIS
+This script creates four partitions for a UEFI/GPT-based PC.
 
+.DESCRIPTION
+The script creates the following partitions:
+1. System partition
+2. Microsoft Reserved (MSR) partition
+3. Windows partition
+4. Recovery partition
+
+.PARAMETER DiskNumber
+The number of the disk to partition. Default is 0.
+
+.PARAMETER EfiSize
+The size of the EFI partition in MB. Default is 260.
+
+.PARAMETER EfiLabel
+The label for the EFI partition. Default is 'System'.
+
+.PARAMETER WindowsLabel
+The label for the Windows partition. Default is 'Windows'.
+
+.PARAMETER WindowsDriveLetter
+The drive letter for the Windows partition. Default is 'C'.
+
+.PARAMETER RecoverySize
+The size of the Recovery partition in MB. Default is 990.
+
+.PARAMETER RecoveryLabel
+The label for the Recovery partition. Default is 'Recovery'.
+
+.EXAMPLE
+CreatePartitions-UEFI.ps1 -DiskNumber 0 -EfiSize 260 -EfiLabel 'System' -WindowsLabel 'Windows' -WindowsDriveLetter 'C' -RecoverySize 990 -RecoveryLabel 'Recovery'
+Creates four partitions on disk 0 with the specified sizes and labels.
+
+.NOTES
+This script is based on the sample scripts provided by Microsoft for OEM deployment of Windows desktop editions.
+
+.LINK
+https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oem-deployment-of-windows-desktop-editions-sample-scripts?preserve-view=true&view=windows-10#-createpartitions-uefitxt
+#>
+# Disk to Clean and Partition
 $DiskNumber = 0
+
+# Partition 1 - System Partition
 $EfiSize = 260
 $EfiLabel = 'System'
+
+# Partition 2 - MSR Partition
+
+# Partition 3 - OS Partition
 $WindowsLabel = 'Windows'
-$WindowsDriveLetter = 'C'
+$WindowsDriveLetter = 'W'
+
+# Partition 4 - Recovery Partition
 $RecoverySize = 990
 $RecoveryLabel = 'Recovery'
 
