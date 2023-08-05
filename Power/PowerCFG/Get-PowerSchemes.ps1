@@ -9,4 +9,4 @@
     Author: David Segura
     Modified: 2023-07-16
 #>
-powercfg /list
+powercfg.exe /List

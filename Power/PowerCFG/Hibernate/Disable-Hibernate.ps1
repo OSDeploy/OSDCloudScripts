@@ -12,4 +12,4 @@
 
     Make sure your device supports Hibernate with powercfg /availablesleepstates
 #>
-powercfg /hibernate on
+powercfg.exe /Hibernate off

@@ -25,4 +25,4 @@
     sub_GUID
     Specifies a power-setting subgroup GUID. A power setting subgroup GUID is returned by running powercfg /query.
 #>
-powercfg /query
+powercfg.exe /Query

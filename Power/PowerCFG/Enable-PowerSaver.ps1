@@ -1,0 +1,1 @@
+powercfg.exe /SetActive SCHEME_MAX
