@@ -1,3 +1,10 @@
+<#
+.SYNOPSIS
+Creates a new ReAgent.xml file.
+
+.DESCRIPTION
+This script creates a new ReAgent.xml file with default values.
+#>
 $ReAgentXmlPath = 'C:\Windows\System32\Recovery\ReAgent.xml'
 
 $ReAgentXml = @'

@@ -17,10 +17,6 @@ Reagentc /setreimage /path S:\Recovery\WindowsRE
 Reagentc /setreimage /path T:\Recovery\WindowsRE /target W:\Windows
     
 .LINK
-https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/reagentc-command-line-options?view=windows-11    
-
-.NOTES
-    Author: David Segura
-    Modified: 2023-07-20
+https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/reagentc-command-line-options?view=windows-11
 #>
 Reagentc /setreimage /path R:\Recovery\WindowsRE

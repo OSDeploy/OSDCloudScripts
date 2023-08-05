@@ -12,9 +12,6 @@
     https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options#-query-or-q-
     
 .NOTES
-    Author: David Segura
-    Modified: 2023-07-16
-
     Syntax:
     powercfg /query [scheme_GUID] [sub_GUID]
 
