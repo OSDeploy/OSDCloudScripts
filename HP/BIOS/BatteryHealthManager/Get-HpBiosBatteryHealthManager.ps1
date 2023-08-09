@@ -5,10 +5,4 @@ $Class = 'HP_BIOSSetting'
 $ClassInterface = 'HP_BIOSSettingInterface'
 $Name = 'Battery Health Manager'
 
-try {
-    $Result = Get-WmiObject -Namespace $Namespace -Class $Class -Filter "name='$Name'" -ErrorAction Stop
-    Return $true
-}
-catch {
-    Return $false
-}
+Get-WmiObject -Namespace $Namespace -Class $Class -Filter "name='$Name'" -ErrorAction Stop
