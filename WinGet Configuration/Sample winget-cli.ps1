@@ -2,6 +2,41 @@
 [CmdletBinding()]
 param()
 
+#region YamlFile
+#https://github.com/microsoft/devhome/blob/main/sampleConfigurations/microsoft/winget-cli/configuration.dsc.yaml
+$Configuration = @'
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+# Reference: https://github.com/microsoft/winget-cli#building-the-client
+properties:
+  resources:
+    - resource: Microsoft.Windows.Developer/DeveloperMode
+      directives:
+        description: Enable Developer Mode
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: vsPackage
+      directives:
+        description: Install Visual Studio 2022 (any edition is OK)
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudio.2022.Community
+        source: winget
+    - resource: Microsoft.VisualStudio.DSC/VSComponents
+      dependsOn:
+        - vsPackage
+      directives:
+        description: Install required VS workloads from project .vsconfig file
+        allowPrerelease: true
+      settings:
+        productId: Microsoft.VisualStudio.Product.Community
+        channelId: VisualStudio.17.Release
+        vsConfigFile: '${WinGetConfigRoot}\..\.vsconfig'
+  configurationVersion: 0.2.0
+'@
+#endregion
+
 #region Check for Admin Elevated
 $whoiam = [system.security.principal.windowsidentity]::getcurrent().name
 $isElevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
@@ -16,68 +51,6 @@ else {
 
 #region TLS 1.2 Connection
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-#endregion
-
-#region YamlFile
-$fileyaml = @'
-# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
-properties:
-  resources:
-    - resource: WinGetPackage
-      id: Git_Package
-      directives:
-        description: Install Git for Windows
-        module: Microsoft.WinGet.DSC
-        allowPrerelease: true
-      settings:
-        id: Git.Git
-        source: winget
-        ensure: present
-    - resource: WinGetPackage
-      id: vsCode_Package
-      directives:
-        description: Install Visual Studio Code
-        module: Microsoft.WinGet.DSC
-        allowPrerelease: true
-      settings:
-        id: Microsoft.VisualStudioCode
-        source: winget
-        ensure: present
-    - resource: WinGetPackage
-      id: ADK_Package
-      directives:
-        description: Install Microsoft ADK
-        module: Microsoft.WinGet.DSC
-        allowPrerelease: true
-      settings:
-        id: Microsoft.WindowsADK
-        version: '10.1.22621.1'
-        source: winget
-        ensure: present
-    - resource: WinGetPackage
-      id: ADKPE_Package
-      directives:
-        description: Install Microsoft ADK winPE addon
-        module: Microsoft.WinGet.DSC
-        allowPrerelease: true
-      settings:
-        id: Microsoft.ADKPEAddon
-        version: '10.1.22621.1'
-        source: winget
-        ensure: present
-    - resource: WinGetPackage
-      id: MDT_Package
-      directives:
-        description: Install Microsoft Deployment Toolkit
-        module: Microsoft.WinGet.DSC
-        allowPrerelease: true
-      settings:
-        id: Microsoft.DeploymentToolkit
-        version: '6.3.8456.1000'
-        source: winget
-        ensure: present  
-  configurationVersion: 0.2.0 
-'@
 #endregion
 
 #region Disable Progress Bar
@@ -514,7 +487,7 @@ function Confirm-DesktopAppInstaller {
 }
 #endregion
 
-#regoin WinGet
+#region WinGet
 if (Confirm-WinGet) {
     # Disable UAC Secure Desktop
     $PolicyKeys = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\' -ErrorAction SilentlyContinue
@@ -542,12 +515,10 @@ if (Confirm-WinGet) {
 }
 #endregion
 
-#region Winget Configuration
-
+#region Winget Settings
 $info = winget show
 $Path = "C:\Users\$env:Username\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState"
-if ((test-path  -path $Path) -eq $true)
-{
+if ((test-path  -path $Path) -eq $true) {
     try {
         $originalsetting = "C:\Users\$ENV:USERNAME\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
@@ -561,9 +532,9 @@ if ((test-path  -path $Path) -eq $true)
 
     }
 
-Write-Host -ForegroundColor DarkCyan "Enable experimental features to Winget"
+    Write-Host -ForegroundColor DarkCyan "Enable experimental features to Winget"
 
-$json =@'
+    $json =@'
 {
     "$schema": "https://aka.ms/winget-settings.schema.json",
 
@@ -577,32 +548,15 @@ $json =@'
       },
 }
 '@
-$json | Out-File "$Path\settings.json" -Encoding ascii -Force
+    $json | Out-File "$Path\settings.json" -Encoding ascii -Force
+    $Configuration | Out-File -FilePath .\configuration.dsc.yaml -Encoding ascii
+    winget configure show .\configuration.dsc.yaml
 
-$fileyaml | Out-File -FilePath .\osdsetup.yaml -Encoding ascii
-
-winget configure show .\osdsetup.yaml
-
-Start-Sleep -Seconds 2
-Write-Host ""
-Write-Host -ForegroundColor DarkCyan "Starting installation of Git, Visual Studio Code, ADK, ADKPE and MDT"
-Write-Host ""
-
-winget configure .\osdsetup.yaml ---disable-interactivity --accept-configuration-agreements
-
-#endregion
-Start-Sleep -Seconds 2
-
-#region Workflow
-Write-Host -ForegroundColor DarkCyan "Starting OSDCloud Workflow"
-Write-Host ""
-
-New-OSDCloudTemplate 
-New-OSDCloudWorkspace -WorkspacePath C:\OSDCloud
-Edit-OSDCloudWinPE -CloudDriver * -UseDefaultWallpaper
-
-Write-Host -ForegroundColor DarkCyan "You are ready for OSDCloud"
-
+    Start-Sleep -Seconds 2
+    Write-Host ""
+    Write-Host -ForegroundColor DarkCyan "Starting WinGet Configuration"
+    Write-Host ""
+    winget configure .\configuration.dsc.yaml ---disable-interactivity --accept-configuration-agreements
 }
 else {
     Write-Host "settings.json not found"
