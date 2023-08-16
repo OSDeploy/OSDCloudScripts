@@ -292,7 +292,7 @@ function Confirm-VCLibs140 {
     if ($installedVersion = Get-InstalledVersion -AppName VCLibs140) {
         Write-Host "$AppName $installedVersion is already installed"
         if ([version]$installedVersion -ge [version]$MinVer) {
-            Write-Host "$AppName $installedVersion meets the mnimum required $MinVer"
+            Write-Host "$AppName $installedVersion meets the minimum required $MinVer"
             return $true
         }
         else {

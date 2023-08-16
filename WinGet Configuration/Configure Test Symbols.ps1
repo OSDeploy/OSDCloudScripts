@@ -405,7 +405,7 @@ function Confirm-VCLibs140 {
         Write-Host -ForegroundColor Green " $AppName $installedVersion is already installed"
         if ([version]$installedVersion -ge [version]$MinVer) {
             Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-            Write-Host -ForegroundColor Green " $AppName $installedVersion meets the mnimum requiRed $MinVer"
+            Write-Host -ForegroundColor Green " $AppName $installedVersion meets the minimum requiRed $MinVer"
             return $true
         }
         else {

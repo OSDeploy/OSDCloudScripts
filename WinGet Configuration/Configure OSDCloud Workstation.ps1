@@ -319,7 +319,7 @@ function Confirm-VCLibs140 {
     if ($installedVersion = Get-InstalledVersion -AppName VCLibs140) {
         Write-Host "$AppName $installedVersion is already installed"
         if ([version]$installedVersion -ge [version]$MinVer) {
-            Write-Host "$AppName $installedVersion meets the mnimum required $MinVer"
+            Write-Host "$AppName $installedVersion meets the minimum required $MinVer"
             return $true
         }
         else {
@@ -584,6 +584,15 @@ if ((test-path  -path $Path) -eq $true) {
     Write-Host -ForegroundColor DarkCyan "Starting WinGet Configuration"
     Write-Host ""
     winget configure .\configuration.dsc.yaml ---disable-interactivity --accept-configuration-agreements
+
+    #Post Installation Tasks
+    Start-Sleep -Seconds 2
+    Write-Host -ForegroundColor DarkCyan "Starting OSDCloud Workflow"
+    Install-Module OSD -Force
+    New-OSDCloudTemplate
+    New-OSDCloudWorkspace
+    Edit-OSDCloudWinPE -UseDefaultWallpaper
+    Write-Host -ForegroundColor DarkCyan "You are ready for OSDCloud"
 }
 else {
     Write-Host "settings.json not found"
