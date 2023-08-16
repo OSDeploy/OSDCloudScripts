@@ -1,10 +1,10 @@
 #Requires -RunAsAdministrator
 <#
 .SYNOPSIS
-Installs WinGet Preview
+Installs WinGet
 
 .DESCRIPTION
-Installs WinGet Preview
+Installs WinGet
 
 .LINK
 https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget

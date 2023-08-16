@@ -1,4 +1,5 @@
 Get-CimInstance -ClassName CIM_Battery | Select-Object -Property *
+
 <#
 Caption                     : Portable Battery
 Description                 : Portable Battery
