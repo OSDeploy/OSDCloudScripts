@@ -1,10 +1,8 @@
 #Requires -RunAsAdministrator
-Param()
+[CmdletBinding()]
+param()
 
-#fix TLS 1.2
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-Function Get-Symbol{
+function Get-Symbol{
     <#
     .SYNOPSIS
     Returns a UTF-8 character based on the symbol name
@@ -52,6 +50,24 @@ Function Get-Symbol{
     }
     
 }
+
+#region Check for Admin Elevated
+$whoiam = [system.security.principal.windowsidentity]::getcurrent().name
+$isElevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+if ($isElevated) {
+    Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
+    Write-Host -ForegroundColor Green "Running as $whoiam and IS Elevated"
+}
+else {
+    Write-Host -ForegroundColor Red "Running as $whoiam and is NOT Elevated"
+    Break
+}
+#endregion
+
+#region TLS 1.2 Connection
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+#endregion
+
 #region YamlFile
 $fileyaml = @'
 # yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
@@ -129,23 +145,6 @@ properties:
         ensure: present
   configurationVersion: 0.2.0 
 '@
-#endregion
-
-#region Check for Admin Elevated
-$whoiam = [system.security.principal.windowsidentity]::getcurrent().name
-$isElevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
-if ($isElevated) {
-    Write-Host ("{0}" -f (Get-Symbol -Symbol GreenCheckmark)) -ForegroundColor Green -NoNewline
-    Write-Host -ForegroundColor Green "Running as $whoiam and IS Elevated"
-}
-else {
-    Write-Host -ForegroundColor Red "Running as $whoiam and is NOT Elevated"
-    Break
-}
-#endregion
-
-#region TLS 1.2 Connection
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 #endregion
 
 #region Disable Progress Bar

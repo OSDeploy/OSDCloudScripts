@@ -1,7 +1,22 @@
 #Requires -RunAsAdministrator
-
 [CmdletBinding()]
 param()
+
+#region Check for Admin Elevated
+$whoiam = [system.security.principal.windowsidentity]::getcurrent().name
+$isElevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+if ($isElevated) {
+    Write-Output "Running as $whoiam and IS Elevated"
+}
+else {
+    Write-Warning "Running as $whoiam and is NOT Elevated"
+    Break
+}
+#endregion
+
+#region TLS 1.2 Connection
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+#endregion
 
 #region YamlFile
 $fileyaml = @'
@@ -63,22 +78,6 @@ properties:
         ensure: present  
   configurationVersion: 0.2.0 
 '@
-#endregion
-
-#region Check for Admin Elevated
-$whoiam = [system.security.principal.windowsidentity]::getcurrent().name
-$isElevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
-if ($isElevated) {
-    Write-Output "Running as $whoiam and IS Elevated"
-}
-else {
-    Write-Warning "Running as $whoiam and is NOT Elevated"
-    Break
-}
-#endregion
-
-#region TLS 1.2 Connection
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 #endregion
 
 #region Disable Progress Bar
