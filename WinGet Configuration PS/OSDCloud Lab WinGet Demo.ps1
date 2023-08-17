@@ -1,12 +1,12 @@
 ﻿#Requires -RunAsAdministrator
 [CmdletBinding()]
 param(
+    [System.String]$UpgradeExistingApps = $true,
     [System.String]$AddHyperV = $true,
     [System.String]$AddSandbox = $true,
     [System.String]$HardwareApps = $true,
     [System.String]$InstallOSD = $true,
-    [System.String]$InstallVSCode = $true,
-    [System.String]$WinGetUpgrade = $true
+    [System.String]$InstallVSCode = $true
 )
 
 $WinGetPackages = @(
@@ -78,6 +78,15 @@ else {
         Write-Error '[!] WinGet could not be installed'
         Break
     }
+}
+#endregion
+
+#region UpgradeExistingApps
+if ($UpgradeExistingApps -eq $true) {
+    winget upgrade 
+    Start-Sleep -Seconds 5
+    Write-Host -ForegroundColor Yellow "[-] winget upgrade --all --silent"
+    winget upgrade --all --silent
 }
 #endregion
 
@@ -187,14 +196,5 @@ if ($InstallVSCode -eq $true) {
     else {
         Write-Host -ForegroundColor Green "[+] $id"
     }
-}
-#endregion
-
-#region WinGetUpgrade
-if ($WinGetUpgrade -eq $true) {
-    winget upgrade 
-    Start-Sleep -Seconds 5
-    Write-Host -ForegroundColor Yellow "[-] winget upgrade --all --silent"
-    winget upgrade --all --silent
 }
 #endregion
