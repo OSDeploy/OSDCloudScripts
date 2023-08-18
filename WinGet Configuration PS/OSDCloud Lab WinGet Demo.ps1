@@ -10,6 +10,7 @@ param(
 )
 
 $WinGetPackages = @(
+    '9N1F85V9T8BN' #Windows 365
     '7zip.7zip'
     'Google.Chrome'
     'Logitech.OptionsPlus'
@@ -83,9 +84,11 @@ else {
 
 #region UpgradeExistingApps
 if ($UpgradeExistingApps -eq $true) {
-    winget upgrade 
+    Write-Host -ForegroundColor Green "[+] WinGet Upgrade"
+    winget upgrade --accept-source-agreements --accept-package-agreements
     Start-Sleep -Seconds 5
-    Write-Host -ForegroundColor Yellow "[-] winget upgrade --all --silent"
+
+    Write-Host -ForegroundColor Yellow "[-] WinGet Upgrade --all --silent"
     winget upgrade --all --silent
 }
 #endregion
@@ -94,7 +97,7 @@ if ($UpgradeExistingApps -eq $true) {
 foreach ($id in $WinGetPackages) {
     $WinGetList = winget list --id $id --exact --accept-source-agreements
     if ($WinGetList -match 'No installed package found') {
-        Write-Host -ForegroundColor Yellow "[-] winget install --id $id --exact --accept-source-agreements --accept-package-agreements"
+        Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --exact --accept-source-agreements --accept-package-agreements"
         winget install --id $id --exact --accept-source-agreements --accept-package-agreements
     }
     else {
@@ -108,18 +111,18 @@ if ($HardwareApps -eq $true) {
     # Dell Display Manager
     $id = 'Dell.DisplayManager'
     if (Get-PnpDevice -PresentOnly -Class 'Monitor' | Where-Object {$_.InstanceID -match 'DISPLAY\\DEL'}) {
-        Write-Host -ForegroundColor Yellow "[-] winget install --id $id --exact --accept-source-agreements --accept-package-agreements"
+        Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --exact --accept-source-agreements --accept-package-agreements"
         winget install --id $id --exact --accept-source-agreements --accept-package-agreements
     
         $id = 'Microsoft.DotNet.DesktopRuntime.5'
-        Write-Host -ForegroundColor Yellow "[-] winget install --id $id --exact --accept-source-agreements --accept-package-agreements"
+        Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --exact --accept-source-agreements --accept-package-agreements"
         winget install --id $id --exact --accept-source-agreements --accept-package-agreements
     }
     
     # HP Display Center
     $id = '9NT6FQ9KQF90'
     if (Get-PnpDevice -PresentOnly -Class 'Monitor' | Where-Object {$_.InstanceID -match 'DISPLAY\\HP'}) {
-        Write-Host -ForegroundColor Yellow "[-] winget install --id $id --exact --accept-source-agreements --accept-package-agreements"
+        Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --exact --accept-source-agreements --accept-package-agreements"
         winget install --id $id --exact --accept-source-agreements --accept-package-agreements
     }
 }
@@ -135,7 +138,7 @@ if ($InstallOSD -eq $true) {
     foreach ($id in $WinGetPackages) {
         $WinGetList = winget list --id $id --exact --accept-source-agreements
         if ($WinGetList -match 'No installed package found') {
-            Write-Host -ForegroundColor Yellow "[-] winget install --id $id --exact --accept-source-agreements --accept-package-agreements"
+            Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --exact --accept-source-agreements --accept-package-agreements"
             winget install --id $id --exact --accept-source-agreements --accept-package-agreements
         }
         else {
@@ -146,7 +149,7 @@ if ($InstallOSD -eq $true) {
     $id = 'Microsoft.WindowsADK'
     $WinGetList = winget list --id $id --exact
     if ($WinGetList -match 'No installed package found') {
-        Write-Host -ForegroundColor Yellow "[-] winget install --id $id --version 10.1.22621.1 --exact --accept-source-agreements --accept-package-agreements"
+        Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --version 10.1.22621.1 --exact --accept-source-agreements --accept-package-agreements"
         winget install --id $id --version 10.1.22621.1 --exact --accept-source-agreements --accept-package-agreements
     }
     else {
@@ -156,7 +159,7 @@ if ($InstallOSD -eq $true) {
     $id = 'Microsoft.ADKPEAddon'
     $WinGetList = winget list --id $id --exact
     if ($WinGetList -match 'No installed package found') {
-        Write-Host -ForegroundColor Yellow "[-] winget install --id $id --version 10.1.22621.1 --exact --accept-source-agreements --accept-package-agreements"
+        Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --version 10.1.22621.1 --exact --accept-source-agreements --accept-package-agreements"
         winget install --id $id --version 10.1.22621.1 --exact --accept-source-agreements --accept-package-agreements
     }
     else {
@@ -179,7 +182,7 @@ if ($InstallVSCode -eq $true) {
     foreach ($id in $WinGetPackages) {
         $WinGetList = winget list --id $id --exact --accept-source-agreements
         if ($WinGetList -match 'No installed package found') {
-            Write-Host -ForegroundColor Yellow "[-] winget install --id $id --exact --accept-source-agreements --accept-package-agreements"
+            Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --exact --accept-source-agreements --accept-package-agreements"
             winget install --id $id --exact --accept-source-agreements --accept-package-agreements
         }
         else {
@@ -190,7 +193,7 @@ if ($InstallVSCode -eq $true) {
     $id = 'Microsoft.VisualStudioCode'
     $WinGetList = winget list --id $id --exact
     if ($WinGetList -match 'No installed package found') {
-        Write-Host -ForegroundColor Yellow "[-] winget install --id $id --exact --override /SILENT /mergetasks=!runcode,addcontextmenufiles,addcontextmenufolders"
+        Write-Host -ForegroundColor Yellow "[-] WinGet Install --id $id --exact --override /SILENT /mergetasks=!runcode,addcontextmenufiles,addcontextmenufolders"
         winget install --id $id --exact --accept-source-agreements --accept-package-agreements --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"'
     }
     else {
