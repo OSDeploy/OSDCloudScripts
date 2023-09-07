@@ -25,13 +25,27 @@ $Body = @{
     "client_secret" = $Global:PSTechPulseSettings.client_secret
 }
 
-$AccessToken = Invoke-RestMethod -Method Post -Body $Body -Uri $Global:PSTechPulseSettings.access_token_uri -Headers @{'Content-Type' = 'application/x-www-form-urlencoded'}
+try {
+    $AccessToken = Invoke-RestMethod -Method Post -Body $Body -Uri $Global:PSTechPulseSettings.access_token_uri -Headers @{'Content-Type' = 'application/x-www-form-urlencoded'} -ErrorAction Stop
+}
+catch {
+    Write-Warning 'Error getting access token. Try running Get-PSTechPulseAuthCode first.'
+    throw $_.Exception
+}
 
-if ($Global:AccessToken.access_token) {
+if ($AccessToken.access_token) {
     $Global:PSTechPulseSettings.access_token = $AccessToken.access_token
     $Global:PSTechPulseSettings | ConvertTo-Json | Out-File "$env:HOMEPATH\Documents\PSTechPulseSettings.json" -Encoding ascii -Force
 }
-if ($Global:AccessToken.refresh_token) {
+else {
+    Write-Warning 'Error getting access_token.'
+    throw
+}
+if ($AccessToken.refresh_token) {
     $Global:PSTechPulseSettings.refresh_token = $AccessToken.refresh_token
     $Global:PSTechPulseSettings | ConvertTo-Json | Out-File "$env:HOMEPATH\Documents\PSTechPulseSettings.json" -Encoding ascii -Force
+}
+else {
+    Write-Warning 'Error getting refresh_token.'
+    throw
 }
