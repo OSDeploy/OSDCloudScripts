@@ -1,4 +1,4 @@
-﻿function Set-HpProactiveInsights {
+﻿function Set-HPProactiveInsights {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -39,9 +39,9 @@
         [System.String]$State = 'DCEeFWf45A53sdfKef424'
     )
 
-    $SettingsFile = "$env:HOMEPATH\Documents\HpProactiveInsights.json"
+    $SettingsFile = "$env:HOMEPATH\Documents\HPProactiveInsightsConfig.json"
 
-    $Global:HpProactiveInsights = [ordered]@{
+    $Global:HPProactiveInsights = [ordered]@{
         "apiScheme" = $ApiScheme
         "apiHost" = $ApiHost
         "apiBasePath" = $ApiBasePath
@@ -60,11 +60,11 @@
         "refresh_token" = ""
     }
 
-    $Global:HpProactiveInsights | ConvertTo-Json | Out-File $SettingsFile -Encoding ascii -Force
+    $Global:HPProactiveInsights | ConvertTo-Json | Out-File $SettingsFile -Encoding ascii -Force
     
     Write-Verbose -Verbose "HP Proactive Insights API settings saved to $SettingsFile"
 
-    Return $Global:HpProactiveInsights
+    Return $Global:HPProactiveInsights
 }
 
-Set-HpProactiveInsights
+Set-HPProactiveInsights
