@@ -2,8 +2,10 @@
     [CmdletBinding()]
     param ()
 
-    if (Test-Path "$env:HOMEPATH\Documents\HpProactiveInsights.json") {
-        $Global:HpProactiveInsights = Get-Content "$env:HOMEPATH\Documents\HpProactiveInsights.json" | ConvertFrom-Json
+    $SettingsFile = "$env:HOMEPATH\Documents\HpProactiveInsights.json"
+
+    if (Test-Path $SettingsFile) {
+        $Global:HpProactiveInsights = Get-Content $SettingsFile | ConvertFrom-Json
     }
     else {
         Write-Warning "No settings file found, please run Set-HpProactiveInsights first."
@@ -17,7 +19,7 @@
     $Global:HpProactiveInsights.auth_code = Read-Host "`nEnter the auth code from your response url $($Global:HpProactiveInsights.redirect_uri)?state=$($Global:HpProactiveInsights.state)&code=********"
 
     if ($Global:HpProactiveInsights.auth_code) {
-        $Global:HpProactiveInsights | ConvertTo-Json | Out-File "$env:HOMEPATH\Documents\HpProactiveInsights.json" -Encoding ascii -Force
+        $Global:HpProactiveInsights | ConvertTo-Json | Out-File $SettingsFile -Encoding ascii -Force
         Write-Verbose "Get-HpProactiveInsightsAccessToken: Generates an Access Token for HP TechPulse API"
     }
     else {

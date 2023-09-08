@@ -2,8 +2,10 @@
     [CmdletBinding()]
     param ()
 
-    if (Test-Path "$env:HOMEPATH\Documents\HpProactiveInsights.json") {
-        $Global:HpProactiveInsights = Get-Content "$env:HOMEPATH\Documents\HpProactiveInsights.json" | ConvertFrom-Json
+    $SettingsFile = "$env:HOMEPATH\Documents\HpProactiveInsights.json"
+
+    if (Test-Path $SettingsFile) {
+        $Global:HpProactiveInsights = Get-Content $SettingsFile | ConvertFrom-Json
     }
     else {
         Write-Warning "No settings file found, please run Set-HpProactiveInsights first."
@@ -36,19 +38,21 @@
 
     if ($AccessToken.access_token) {
         $Global:HpProactiveInsights.access_token = $AccessToken.access_token
-        $Global:HpProactiveInsights | ConvertTo-Json | Out-File "$env:HOMEPATH\Documents\HpProactiveInsights.json" -Encoding ascii -Force
+        $Global:HpProactiveInsights | ConvertTo-Json | Out-File $SettingsFile -Encoding ascii -Force
     }
     else {
-        Write-Warning 'Error getting access_token.'
+        Write-Warning 'Error getting access token. Try running Get-HpProactiveInsightsAuthCode first.'
         throw
     }
     if ($AccessToken.refresh_token) {
         $Global:HpProactiveInsights.refresh_token = $AccessToken.refresh_token
-        $Global:HpProactiveInsights | ConvertTo-Json | Out-File "$env:HOMEPATH\Documents\HpProactiveInsights.json" -Encoding ascii -Force
+        $Global:HpProactiveInsights | ConvertTo-Json | Out-File $SettingsFile -Encoding ascii -Force
     }
     else {
-        Write-Warning 'Error getting refresh_token.'
+        Write-Warning 'Error getting access token. Try running Get-HpProactiveInsightsAuthCode first.'
         throw
     }
     return $AccessToken
 }
+
+Get-HpProactiveInsightsAccessToken

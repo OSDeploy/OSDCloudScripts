@@ -23,6 +23,15 @@
         [System.String]
         $access_token_uri = 'https://daas.api.hp.com/oauth/v1/token',
 
+        [System.String]
+        $apiScheme = 'https',
+
+        [System.String]
+        $apiHost = 'daas.api.hp.com',
+
+        [System.String]
+        $apiBasePath = '/analytics/v1',
+
         [Alias('CallbackURL')]
         [System.String]$redirect_uri = 'https://127.0.0.1:5000/',
         
@@ -30,7 +39,13 @@
         [System.String]$State = 'DCEeFWf45A53sdfKef424'
     )
 
+    $SettingsFile = "$env:HOMEPATH\Documents\HpProactiveInsights.json"
+
     $Global:HpProactiveInsights = [ordered]@{
+        "apiScheme" = $ApiScheme
+        "apiHost" = $ApiHost
+        "apiBasePath" = $ApiBasePath
+
         "client_id" = $client_id
         "client_secret" = $client_secret
         "redirect_uri" = $redirect_uri
@@ -45,7 +60,11 @@
         "refresh_token" = ""
     }
 
-    $Global:HpProactiveInsights | ConvertTo-Json | Out-File "$env:HOMEPATH\Documents\HpProactiveInsights.json" -Encoding ascii -Force
+    $Global:HpProactiveInsights | ConvertTo-Json | Out-File $SettingsFile -Encoding ascii -Force
+    
+    Write-Verbose -Verbose "HP Proactive Insights API settings saved to $SettingsFile"
+
+    Return $Global:HpProactiveInsights
 }
 
-Set-HpProactiveInsights -client_id 'your_client_id' -client_secret 'your_client_secret'
+Set-HpProactiveInsights
