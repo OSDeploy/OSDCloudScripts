@@ -59,3 +59,7 @@ if (!(Test-Path $AutomateUSB)) {
 $Automate | Out-File -FilePath "$AutomateUSB\Start-OSDCloudGUI.json" -Force
 
 # Run Edit-OSDCloudWinPE to rebuild
+Edit-OSDCloudWinPE -StartOSDCloudGUI
+
+# Test in a Virtual Machine
+New-OSDCloudVM
