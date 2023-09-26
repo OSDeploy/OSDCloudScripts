@@ -33,3 +33,7 @@ foreach ($Update in $WsusXml) {
         }
     }
 }
+$Updates = Get-ChildItem -Path $DownloadPath -File
+foreach ($Item in $Updates) {
+    dism /Image:C:\ /Add-Package /PackagePath:$($Item.FullName) /ScratchDir:C:\Windows\Temp
+}

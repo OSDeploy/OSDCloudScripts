@@ -1,23 +1,8 @@
-<#PSScriptInfo
-.VERSION 23.6.1.2
-.GUID 21e0ed9a-a9aa-4f54-86a5-67e0a39c760b
-.AUTHOR David Segura
-.COMPANYNAME David Segura
-.COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS OSDCloud
-.LICENSEURI 
-.PROJECTURI https://github.com/OSDeploy/PwshHub
-.ICONURI 
-.EXTERNALMODULEDEPENDENCIES 
-.REQUIREDSCRIPTS 
-.EXTERNALSCRIPTDEPENDENCIES 
-.RELEASENOTES
-#>
 #Requires -Modules @{ ModuleName="OSD"; ModuleVersion="23.5.26.1" }
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Creates a new OSDCloud Template using ADK WinPE
+Creates a new OSDCloud Template using Windows 11 WinRE (Wireless support)
 .LINK
 https://www.osdcloud.com
 #>
@@ -25,13 +10,13 @@ https://www.osdcloud.com
 param()
 
 # Create an OSDCloud Template using the ADK WinPE
-New-OSDCloudTemplate -Name 'WinPE'
+New-OSDCloudTemplate -Name 'WinRE'
 
 # Create an OSDCloud Workspace
-New-OSDCloudWorkspace -WorkspacePath 'C:\OSDCloudPE'
+New-OSDCloudWorkspace -WorkspacePath 'C:\OSDCloudRE'
 
 # Set the default WinPE Wallpaper
-Edit-OSDCloudWinPE -UseDefaultWallpaper
+Edit-OSDCloudWinPE -UseDefaultWallpaper -CloudDriver *
 
 # Test in Hyper-V
 if (Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All) {
