@@ -1,1 +1,2 @@
-﻿Edit-OSDCloudWinPE
+﻿#Requires -RunAsAdministrator
+Edit-OSDCloudWinPE

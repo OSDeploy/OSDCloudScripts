@@ -1,1 +1,2 @@
-﻿Edit-OSDCloudWinPE -StartOSDCloudGUI -Brand 'HP'
+﻿#Requires -RunAsAdministrator
+Edit-OSDCloudWinPE -StartOSDCloudGUI -Brand 'HP'
