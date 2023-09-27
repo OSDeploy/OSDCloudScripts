@@ -1,6 +1,6 @@
 #================================================
 #   OSDCloud Task Sequence
-#   Windows 10 21H1 Pro en-us Retail
+#   Windows 10 22H2 Pro en-us Retail
 #   No Autopilot
 #   No Office Deployment Tool
 #================================================
@@ -13,7 +13,7 @@ Import-Module OSD -Force
 #   [OS] Start-OSDCloud with Params
 #================================================
 $Params = @{
-    OSBuild = "21H1"
+    OSBuild = "22H2"
     OSEdition = "Pro"
     OSLanguage = "en-us"
     OSLicense = "Retail"
