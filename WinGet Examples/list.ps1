@@ -1,4 +1,5 @@
 #Requires -RunAsAdministrator
+#WPNinjaS
 <#
 .DESCRIPTION
 The list command of the winget tool displays a list of the applications currently installed on your computer.

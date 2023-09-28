@@ -1,4 +1,5 @@
 #Requires -RunAsAdministrator
+#WPNinjaS
 <#
 .DESCRIPTION
 The features command of the winget tool displays a list of the experimental features available with your version of the Windows Package Manager.

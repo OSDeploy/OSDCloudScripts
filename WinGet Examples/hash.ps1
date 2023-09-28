@@ -1,4 +1,5 @@
 #Requires -RunAsAdministrator
+#WPNinjaS
 <#
 .DESCRIPTION
 The hash command of the winget tool generates the SHA256 hash for an installer.

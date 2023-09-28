@@ -1,4 +1,5 @@
 #Requires -RunAsAdministrator
+#WPNinjaS
 <#
 .DESCRIPTION
 The import command of the winget tool imports a JSON file of apps to install.

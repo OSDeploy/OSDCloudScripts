@@ -1,4 +1,5 @@
 #Requires -RunAsAdministrator
+#WPNinjaS
 <#
 .DESCRIPTION
 The export command of the winget tool exports a JSON file of apps to a specified file.

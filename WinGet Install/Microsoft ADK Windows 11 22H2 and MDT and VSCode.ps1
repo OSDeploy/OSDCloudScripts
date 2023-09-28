@@ -1,19 +1,5 @@
-<#PSScriptInfo
-.VERSION 23.6.1.2
-.GUID 69f67667-2df9-4e6f-bf78-2a206d46e0ae
-.AUTHOR David Segura
-.COMPANYNAME David Segura
-.COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS WinGet
-.LICENSEURI 
-.PROJECTURI https://github.com/OSDeploy/PwshHub
-.ICONURI 
-.EXTERNALMODULEDEPENDENCIES 
-.REQUIREDSCRIPTS 
-.EXTERNALSCRIPTDEPENDENCIES 
-.RELEASENOTES
-#>
 #Requires -RunAsAdministrator
+#WPNinjaS
 <#
 .DESCRIPTION
 Install Package using WinGet

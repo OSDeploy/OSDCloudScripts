@@ -1,4 +1,5 @@
 #Requires -RunAsAdministrator
+#WPNinjaS
 <#
 .DESCRIPTION
 The info command of the winget tool displays metadata about the system, including version numbers, system architecture, log location, links to legal agreements, and Group Policy state.
