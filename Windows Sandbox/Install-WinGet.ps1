@@ -1,3 +1,4 @@
+#WPNinjaS
 #requires -RunAsAdministrator
 
 <#
