@@ -30,15 +30,20 @@ else {
 }
 
 if (Get-AppxPackage -Name 'Microsoft.DesktopAppInstaller' -ErrorAction SilentlyContinue | Where-Object { $_.Version -ge '1.21.2701.0' }) {
-    Write-Host -ForegroundColor Green '[+] WinGet is up to date'
+    Write-Host -ForegroundColor Green '[+] WinGet is current'
 }
 else {
-    $WingetVersion = & winget.exe --version
-    [string]$WingetVersion = $WingetVersion -replace '[a-zA-Z\-]'
+    if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
+        $WingetVersion = & winget.exe --version
+        [string]$WingetVersion = $WingetVersion -replace '[a-zA-Z\-]'
 
-    Write-Host -ForegroundColor Yellow "[-] WinGet $WingetVersion requires an update"
+        Write-Host -ForegroundColor Yellow "[-] WinGet $WingetVersion requires an update"
+    }
+    else {
+        Write-Host -ForegroundColor Yellow "[-] Installing WinGet"
+    }
+
     $progressPreference = 'silentlyContinue'
-
     Write-Host -ForegroundColor Yellow "[-] Downloading Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
     Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 
