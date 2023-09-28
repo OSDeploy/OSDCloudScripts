@@ -31,10 +31,6 @@
 					"Version" : "114.0.1823.58"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.WinDbg",
-					"Version" : "1.2303.30001.0"
-				},
-				{
 					"PackageIdentifier" : "Microsoft.WindowsTerminal",
 					"Version" : "1.16.10261.0"
 				},

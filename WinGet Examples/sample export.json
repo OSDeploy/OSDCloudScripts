@@ -25,9 +25,6 @@
 					"PackageIdentifier" : "Microsoft.EdgeWebView2Runtime"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.WinDbg"
-				},
-				{
 					"PackageIdentifier" : "Microsoft.WindowsTerminal"
 				},
 				{

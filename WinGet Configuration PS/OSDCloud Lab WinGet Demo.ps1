@@ -23,7 +23,6 @@ $WinGetPackages = @(
     'Microsoft.PowerToys'
     'Microsoft.VCRedist.2015+.x86'
     'Microsoft.VCRedist.2015+.x64'
-    'Microsoft.WinDbg'
     'Microsoft.WindowsAdminCenter'
     'Notepad++.Notepad++'
     'PrimateLabs.Geekbench.6'
