@@ -9,13 +9,20 @@ To install the stable release of winget on Windows Sandbox, follow these steps f
 #>
 
 $progressPreference = 'silentlyContinue'
+
 $latestWingetMsixBundleUri = $(Invoke-RestMethod https://api.github.com/repos/microsoft/winget-cli/releases/latest).assets.browser_download_url | Where-Object {$_.EndsWith(".msixbundle")}
+Write-Host -ForegroundColor Cyan "Latest winget release: $latestWingetMsixBundleUri"
+
 $latestWingetMsixBundle = $latestWingetMsixBundleUri.Split("/")[-1]
-Write-Information "Downloading winget to artifacts directory..."
+
+Write-Host -ForegroundColor Cyan "Downloading $latestWingetMsixBundle"
 Invoke-WebRequest -Uri $latestWingetMsixBundleUri -OutFile "./$latestWingetMsixBundle"
+
+Write-Host -ForegroundColor Cyan "Downloading Microsoft.VCLibs.x64.14.00.Desktop.appx"
 Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
-Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
-Add-AppxPackage $latestWingetMsixBundle
+
+Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx -Verbose
+Add-AppxPackage $latestWingetMsixBundle -Verbose
 
 <#
 If you would like a preview or different version of the Package Manager, go to https://github.com/microsoft/winget-cli/releases. Copy the URL of the version you would prefer and update the above Uri.
