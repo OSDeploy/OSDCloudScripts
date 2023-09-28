@@ -4,9 +4,6 @@
 .SYNOPSIS
 Installs WinGet Preview
 
-.DESCRIPTION
-Installs WinGet Preview
-
 .LINK
 https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget
 #>

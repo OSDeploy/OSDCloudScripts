@@ -4,9 +4,6 @@
 .SYNOPSIS
 Installs WinGet
 
-.DESCRIPTION
-Installs WinGet
-
 .LINK
 https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget
 #>
