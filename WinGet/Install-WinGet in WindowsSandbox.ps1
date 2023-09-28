@@ -24,6 +24,7 @@ Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -O
 Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx -Verbose
 Add-AppxPackage $latestWingetMsixBundle -Verbose
 
+winget --info
 <#
 If you would like a preview or different version of the Package Manager, go to https://github.com/microsoft/winget-cli/releases. Copy the URL of the version you would prefer and update the above Uri.
 
