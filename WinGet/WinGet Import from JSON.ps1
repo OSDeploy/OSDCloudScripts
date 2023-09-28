@@ -1,4 +1,4 @@
-#Requires -RunAsAdministrator
+﻿#Requires -RunAsAdministrator
 #WPNinjaS
 <#
 .DESCRIPTION
@@ -31,7 +31,7 @@ $WinGetJson = @'
 	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
 
 	"title": "OSD Created WinGet Export",
-	"description": "ADK MDT",
+	"description": "WPNinjaS Demo",
 
 	"WinGetVersion" : "1.2.10691",
 	"CreationDate" : "2023-06-25T23:43:27.520-00:00",
@@ -64,18 +64,6 @@ $WinGetJson = @'
 			"Packages" : 
 			[
 				{
-					"PackageIdentifier" : "Microsoft.WindowsADK",
-					"Version" : "10.1.22621.1"
-				},
-				{
-					"PackageIdentifier" : "Microsoft.ADKPEAddon",
-					"Version" : "10.1.22621.1"
-				},
-				{
-					"PackageIdentifier" : "Microsoft.DeploymentToolkit",
-					"Version" : "6.3.8456.1000"
-				},
-				{
 					"PackageIdentifier" : "Git.Git",
 					"Version" : "2.41.0"
 				},
@@ -106,6 +94,6 @@ $WinGetJson = @'
 '@
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    $WinGetJson | Out-File -FilePath $env:TEMP\wingetimport.json -Encoding utf8 -Force
-    winget import --import-file $env:TEMP\wingetimport.json
+	$WinGetJson | Out-File -FilePath $env:TEMP\wingetimport.json -Encoding utf8 -Force
+	winget import --import-file $env:TEMP\wingetimport.json --ignore-versions --accept-source-agreements --accept-package-agreements
 }

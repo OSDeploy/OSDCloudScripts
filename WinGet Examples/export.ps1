@@ -35,16 +35,16 @@ if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     }
 
     # Export the list of installed apps to a JSON file and include the version of the app currently installed
-    winget export --output $env:TEMP\wingetexportver.json --include-versions
+    winget export --output $env:TEMP\wingetexportversions.json --include-versions
     
-    if (Test-Path "$env:TEMP\wingetexportver.json") {
-        notepad.exe "$env:TEMP\wingetexportver.json"
+    if (Test-Path "$env:TEMP\wingetexportversions.json") {
+        notepad.exe "$env:TEMP\wingetexportversions.json"
     }
 
     # Export the list of installed apps to a JSON file and include the version of the app currently installed and accept the source license agreement
-    winget export --output $env:TEMP\wingetexportveragree.json --include-versions --accept-source-agreements --verbose-logs
+    winget export --output $env:TEMP\wingetexportversionsagree.json --include-versions --accept-source-agreements --verbose-logs
     
-    if (Test-Path "$env:TEMP\wingetexportveragree.json") {
-        notepad.exe "$env:TEMP\wingetexportveragree.json"
+    if (Test-Path "$env:TEMP\wingetexportversionsagree.json") {
+        notepad.exe "$env:TEMP\wingetexportversionsagree.json"
     }
 }

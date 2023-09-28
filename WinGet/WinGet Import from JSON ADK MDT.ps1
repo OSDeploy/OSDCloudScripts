@@ -1,4 +1,6 @@
-﻿<#
+#Requires -RunAsAdministrator
+#WPNinjaS
+<#
 .DESCRIPTION
 The import command of the winget tool imports a JSON file of apps to install.
 The import command combined with the export command allows you to batch install applications on your PC.
@@ -21,9 +23,10 @@ Options
 --accept-source-agreements  Used to accept the source license agreement, and avoid the prompt.
 --verbose-logs	            Used to override the logging setting and create a verbose log.
 #>
-#WPNinjaS
+[CmdletBinding()]
+param()
 
-$WinGetImport = @'
+$WinGetJson = @'
 {
 	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
 
@@ -102,5 +105,7 @@ $WinGetImport = @'
 }
 '@
 
-$WinGetImport | Out-File $env:TEMP\WinGetImport.json -Encoding ascii -Force
-winget import --import-file $env:TEMP\WinGetImport.json
+if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
+    $WinGetJson | Out-File -FilePath $env:TEMP\wingetimport.json -Encoding utf8 -Force
+    winget import --import-file $env:TEMP\wingetimport.json --ignore-versions --accept-source-agreements --accept-package-agreements
+}
