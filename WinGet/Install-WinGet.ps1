@@ -30,10 +30,18 @@ if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     [string]$WingetVersion = $WingetVersion -replace '[a-zA-Z\-]'
 
     if ($WingetVersion -lt '1.3.1251') {
-        Write-Host -ForegroundColor Cyan 'Downloading WinGet and its dependencies...'
+        $progressPreference = 'silentlyContinue'
+
+        Write-Host "WinGet $WingetVersion requires an update."
+        Write-Host -ForegroundColor Cyan 'Downloading Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle'
         Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+
+        Write-Host -ForegroundColor Cyan 'Downloading Microsoft.VCLibs.x64.14.00.Desktop.appx'
         Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
+        
+        Write-Host -ForegroundColor Cyan 'Downloading Microsoft.UI.Xaml.2.7.x64.appx'
         Invoke-WebRequest -Uri https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.7.3/Microsoft.UI.Xaml.2.7.x64.appx -OutFile Microsoft.UI.Xaml.2.7.x64.appx
+
         Write-Host -ForegroundColor Cyan 'Installing WinGet and its dependencies...'
         Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
         Add-AppxPackage Microsoft.UI.Xaml.2.7.x64.appx
