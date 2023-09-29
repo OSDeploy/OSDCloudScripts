@@ -13,5 +13,12 @@ PS C:\> winget search HP.HPCMSL
 Name                                Id        Version Source
 -------------------------------------------------------------
 HP Client Management Script Library HP.HPCMSL 1.6.8   winget
+
+.NOTES
+# HP Client Management Script Library Reference
+# https://www.hp.com/us-en/solutions/client-management-solutions/download.html
+
+# Latest Release 1.6.10
+# https://hpia.hpcloud.hp.com/downloads/cmsl/hp-cmsl-1.6.10.exe
 #>
 winget search HP.HPCMSL

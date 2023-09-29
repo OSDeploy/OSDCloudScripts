@@ -20,7 +20,7 @@ $id = 'HP.HPCMSL'
 $version = '1.6.9'
 $urls = 'https://hpia.hpcloud.hp.com/downloads/cmsl/hp-cmsl-1.6.9.exe'
 
-wingetcreate.exe update --submit --token $token --urls $urls --version $version $id
+wingetcreate.exe update --submit --urls $urls --version $version $id
 
 <#
 Retrieving latest manifest for HP.HPCMSL

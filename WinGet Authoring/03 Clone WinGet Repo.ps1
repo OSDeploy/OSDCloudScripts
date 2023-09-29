@@ -8,7 +8,6 @@ https://github.com/microsoft/winget-pkgs
 https://docs.github.com/en/get-started/quickstart/fork-a-repo
 #>
 
-
 # Set the location for the Git repository
 $Destination = 'C:\GitHub\Forks\winget-pkgs'
 
