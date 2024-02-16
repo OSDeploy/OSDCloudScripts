@@ -15,10 +15,9 @@ This script requires the wingetcreate.exe tool to be installed on the system. Th
 winget install wingetcreate
 #>
 
-$token = 'xxxxxxxxxxxxxxxxx'
 $id = 'HP.HPCMSL'
-$version = '1.6.9'
-$urls = 'https://hpia.hpcloud.hp.com/downloads/cmsl/hp-cmsl-1.6.9.exe'
+$version = '1.6.10'
+$urls = 'https://hpia.hpcloud.hp.com/downloads/cmsl/hp-cmsl-1.6.10.exe'
 
 wingetcreate.exe update --submit --urls $urls --version $version $id
 

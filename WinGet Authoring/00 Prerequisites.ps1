@@ -1,5 +1,5 @@
 # Git for Windows
-winget install --id Git.Git --exact --accept-source-agreements --accept-package-agreements
+#winget install --id Git.Git --exact --accept-source-agreements --accept-package-agreements
 
 # WinGet Create
 winget install wingetcreate

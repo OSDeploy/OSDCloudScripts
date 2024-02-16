@@ -1,3 +1,20 @@
+<#
+.SYNOPSIS
+Installs the Curl utility in a Windows Preinstallation Environment (WinPE).
+
+.DESCRIPTION
+The osdcloud-WinpeInstallCurl function installs the Curl utility in a Windows Preinstallation Environment (WinPE). This function downloads the latest version of Curl from the official website and installs it in the WinPE environment.
+
+.PARAMETER None
+This function does not accept any parameters.
+
+.EXAMPLE
+osdcloud-WinpeInstallCurl
+Installs the Curl utility in the current WinPE environment.
+
+.NOTES
+This function requires an active internet connection to download the latest version of Curl from the official website.
+#>
 function osdcloud-WinpeInstallCurl {
     [CmdletBinding()]
     param ()
