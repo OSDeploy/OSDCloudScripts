@@ -1,4 +1,4 @@
-﻿
+﻿#Requires -RunAsAdministrator
 
 
 $wprp = @'
@@ -87,13 +87,12 @@ $wprp = @'
 </WindowsPerformanceRecorder>
 '@
 
-If (!(Test-Path -Path 'C:\Temp\Collector\TraceLogs')) {
-    New-Item -Path 'C:\Temp\Collector\TraceLogs' -ItemType Directory -Force -ErrorAction Stop
+if (!(Test-Path -Path 'C:\Temp\Toolbox\TraceLogs')) {
+    New-Item -Path 'C:\Temp\Toolbox\TraceLogs' -ItemType Directory -Force -ErrorAction Stop
 }
 
-$wprp | Out-File -FilePath 'C:\Temp\Collector\TraceLogs\TraceLog.wprp' -Force -Encoding utf8
+$wprp | Out-File -FilePath 'C:\Temp\Toolbox\TraceLogs\TraceLog.wprp' -Force -Encoding utf8
 
-
-wpr.exe -start C:\Temp\Collector\TraceLogs\TraceLog.wprp
-#wpr.exe -stop C:\Temp\Collector\TraceLogs\results.etl
+wpr.exe -start C:\Temp\Toolbox\TraceLogs\TraceLog.wprp
+wpr.exe -status
 
