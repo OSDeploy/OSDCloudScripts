@@ -1,0 +1,1 @@
+﻿Start-ScheduledTask -TaskPath '\Microsoft\Windows\TPM\' -TaskName 'Tpm-Maintenance'

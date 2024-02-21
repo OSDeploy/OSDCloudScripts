@@ -1,0 +1,12 @@
+﻿rundll32 tpmcoreprovisioning.dll,TpmPrepForNgc
+rundll32 tpmcoreprovisioning.dll,TpmProvision
+rundll32 tpmcoreprovisioning.dll,TpmCertInstallNvEkCerts
+rundll32 tpmcoreprovisioning.dll,TpmCertGetEkCertFromWeb
+rundll32 tpmcoreprovisioning.dll,TpmRetrieveEkCertOrReschedule
+Start-Sleep -Seconds 5
+rundll32 tpmcoreprovisioning.dll,TpmVerifyDeviceHealth
+rundll32 tpmcoreprovisioning.dll,TpmRetrieveHealthCertOrReschedule
+Start-Sleep -Seconds 5
+rundll32 tpmcoreprovisioning.dll,TpmCertGetWindowsAik
+rundll32 tpmcoreprovisioning.dll,TpmCheckCreateWindowsAIK
+rundll32 tpmcoreprovisioning.dll,TpmEnrollWindowsAikCertificate
