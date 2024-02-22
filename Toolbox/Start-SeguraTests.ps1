@@ -23,66 +23,68 @@ else {
 $Server = 'ztd.dds.microsoft.com'
 $Port = 443
 $NetConnection = (Test-NetConnection -ComputerName $Server -Port $Port).TcpTestSucceeded
+$Message = "Test port $Port on $Server"
 if ($NetConnection -eq $true) {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: Test port $Port on $Server" -ForegroundColor Green
+    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) $Message" -ForegroundColor DarkGray
 }
 else {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: Test port $Port on $Server" -ForegroundColor Red
+    Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) $Message"
 }
 
 $Server = 'ekop.intel.com'
 $Port = 443
 $NetConnection = (Test-NetConnection -ComputerName $Server -Port $Port).TcpTestSucceeded
 if ($NetConnection -eq $true) {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: Test port $Port on $Server" -ForegroundColor Green
+    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) $Message" -ForegroundColor DarkGray
 }
 else {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: Test port $Port on $Server" -ForegroundColor Red
+    Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) $Message"
 }
 
 $Server = 'ftpm.amd.com'
 $Port = 443
 $NetConnection = (Test-NetConnection -ComputerName $Server -Port $Port).TcpTestSucceeded
 if ($NetConnection -eq $true) {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: Test port $Port on $Server" -ForegroundColor Green
+    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) $Message" -ForegroundColor DarkGray
 }
 else {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: Test port $Port on $Server" -ForegroundColor Red
+    Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) $Message"
 }
 
 $Server = 'azure.net'
 $Port = 443
 $NetConnection = (Test-NetConnection -ComputerName $Server -Port $Port).TcpTestSucceeded
 if ($NetConnection -eq $true) {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: Test port $Port on $Server" -ForegroundColor Green
+    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) $Message" -ForegroundColor DarkGray
 }
 else {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: Test port $Port on $Server" -ForegroundColor Red
+    Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) $Message"
 }
 
-#Test Windows Time Service
-$W32Time = Get-Service -Name w32time
+<# Windows Time Service #>
+Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) Get-Service -Name W32time" -ForegroundColor DarkGray
+$W32Time = Get-Service -Name W32time
 if ($W32Time.Status -eq 'Running') {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: Windows Time Service is $($W32Time.Status)" -ForegroundColor Green
+    #Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: Windows Time Service is $($W32Time.Status)" -ForegroundColor DarkGray
 }
 else {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: Windows Time Service is $($W32Time.Status)" -ForegroundColor Red
+    Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) Windows Time Service is $($W32Time.Status)"
 }
 
-#Windows License
+<# Windows License #>
 $WindowsProductKey = (Get-WmiObject -query 'select * from SoftwareLicensingService').OA3xOriginalProductKey
 $WindowsProductType = (Get-WmiObject -query 'select * from SoftwareLicensingService').OA3xOriginalProductKeyDescription
 if ($WindowsProductKey) {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: BIOS OA3 Windows ProductKey is $WindowsProductKey" -ForegroundColor Green
+    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: BIOS OA3 Windows ProductKey is $WindowsProductKey" -ForegroundColor DarkGray
 }
 else {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: BIOS OA3 Windows ProductKey is $WindowsProductKey" -ForegroundColor Red
+    Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) BIOS OA3 Windows ProductKey is not present"
 }
 if ($WindowsProductType) {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: BIOS OA3 Windows ProductKeyDescription is $WindowsProductType" -ForegroundColor Green
+    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: BIOS OA3 Windows ProductKeyDescription is $WindowsProductType" -ForegroundColor DarkGray
 }
 else {
-    Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: BIOS OA3 Windows ProductKeyDescription is $WindowsProductType" -ForegroundColor Red
+    Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: BIOS OA3 Windows ProductKeyDescription is $WindowsProductType"
 }
 
 if ($WindowsProductType -like '*Professional*' -or $WindowsProductType -eq 'Windows 10 Pro' -or $WindowsProductType -like '*Enterprise*') {
@@ -200,37 +202,28 @@ $Win32Tpm = Get-CimInstance -Namespace 'root/cimv2/Security/MicrosoftTpm' -Class
 
 if ($Win32Tpm) {
     $Win32Tpm
-    if ($Win32Tpm.IsEnabled_InitialValue -eq $true) {
-        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: TPM is enabled" -ForegroundColor Green
-    }
-    else {
-        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: TPM is not enabled" -ForegroundColor Red
+    if ($Win32Tpm.IsEnabled_InitialValue -ne $true) {
+        Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) IsEnabled_InitialValue should be True for Autopilot to work properly"
     }
 
-    if ($Win32Tpm.IsActivated_InitialValue -eq $true) {
-        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: TPM is activated" -ForegroundColor Green
-    }
-    else {
-        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: TPM is not activated" -ForegroundColor Red
+    if ($Win32Tpm.IsActivated_InitialValue -ne $true) {
+        Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) IsActivated_InitialValue should be True"
     }
     
-    if ($Win32Tpm.IsOwned_InitialValue -eq $true) {
-        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: TPM is owned" -ForegroundColor Green
+    if ($Win32Tpm.IsOwned_InitialValue -ne $true) {
+        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) IsOwned_InitialValue should be True"
     }
-    else {
-        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: TPM is not owned" -ForegroundColor Red
+    if (!(Get-Tpm | Select-Object tpmowned).TpmOwned -eq $true) {
+        Write-Warning 'Reason: TpmOwned is not owned!)'
     }
 
     $IsReady = $Win32Tpm | Invoke-CimMethod -MethodName 'IsReadyInformation'
     $IsReadyInformation = $IsReady.Information
     if ($IsReadyInformation -eq '0') {
-        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) PASS: TPM is ready for attestation" -ForegroundColor Green
+        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) IsReadyInformation $IsReadyInformation TPM is ready for attestation"
     }
-    if ($IsReadyInformation -ne '0') {
-        Write-Host "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) FAIL: TPM is not ready for attestation" -ForegroundColor Red
-    }
-    if (!(Get-Tpm | Select-Object tpmowned).TpmOwned -eq $true) {
-        Write-Warning 'Reason: TpmOwned is not owned!)'
+    else {
+        Write-Warning "$((Get-Date).ToString('yyyy-MM-dd-HHmmss')) IsReadyInformation $IsReadyInformation TPM is not ready for attestation"
     }
     if ($IsReadyInformation -eq '16777216') {
         Write-Warning 'The TPM has a Health Attestation related vulnerability'
