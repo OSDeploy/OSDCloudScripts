@@ -12,6 +12,9 @@ $wprp = @'
 			<Collectors>
 				<EventCollectorId Value="EventCollector_MDMTraceLoggingProvider">
 					<EventProviders>
+						<EventProvider Id="EventProvider-Microsoft.Tpm.DebugTracing" Name="3a8d6942-b034-48e2-b314-f69c2b4655a3"/>
+						<EventProvider Id="EventProvider-Microsoft.Tpm.HealthAttestationCSP" Name="a935c211-645a-5f5a-4527-778da45bbba5"/>
+						<EventProvider Id="EventProvider-Microsoft.Tpm.ProvisioningTask" Name="470baa67-2d7f-4c9c-8bf4-b1b3226f7b17"/>
 						<EventProvider Id="EventProvider_AADCorePlugin" Name="4DE9BC9C-B27A-43C9-8994-0915F1A5E24F"/>
 						<EventProvider Id="EventProvider_ADMXIngestion" Name="64E05266-27B6-4F6B-AB9E-AB7CC9497089"/>
 						<EventProvider Id="EventProvider_CertificateStore" Name="536D7120-A8A4-4A5F-B1F8-1735DF9B78D0"/>
