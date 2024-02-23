@@ -12,9 +12,6 @@ $wprp = @'
 			<Collectors>
 				<EventCollectorId Value="EventCollector_MDMTraceLoggingProvider">
 					<EventProviders>
-						<EventProvider Id="EventProvider-Microsoft.Tpm.DebugTracing" Name="3a8d6942-b034-48e2-b314-f69c2b4655a3"/>
-						<EventProvider Id="EventProvider-Microsoft.Tpm.HealthAttestationCSP" Name="a935c211-645a-5f5a-4527-778da45bbba5"/>
-						<EventProvider Id="EventProvider-Microsoft.Tpm.ProvisioningTask" Name="470baa67-2d7f-4c9c-8bf4-b1b3226f7b17"/>
 						<EventProvider Id="EventProvider_AADCorePlugin" Name="4DE9BC9C-B27A-43C9-8994-0915F1A5E24F"/>
 						<EventProvider Id="EventProvider_ADMXIngestion" Name="64E05266-27B6-4F6B-AB9E-AB7CC9497089"/>
 						<EventProvider Id="EventProvider_CertificateStore" Name="536D7120-A8A4-4A5F-B1F8-1735DF9B78D0"/>
@@ -63,8 +60,11 @@ $wprp = @'
 						<EventProvider Id="EventProvider_WMITraceLoggingProvider" Name="A76DBA2C-9683-4BA7-8FE4-C82601E117BB"/>
 						<EventProvider Id="EventProvider_WapXperfGuid" Name="18F2AB69-92B9-47E4-B9DB-B4AC2E4C7115"/>
 						<EventProvider Id="EventProvider_WindowsAttestation" Name="0a611b27-ba1a-4acf-9c91-ea1611e24c38"/>
-						<EventProvider Id="EventProvider_microsoft-windows-tpm-wmi" Name="7d5387b0-cbe0-11da-a94d-0800200c9a66"/>
+						<EventProvider Id="EventProvider_Microsoft-Windows-TPM-WMI" Name="7d5387b0-cbe0-11da-a94d-0800200c9a66"/>
 						<EventProvider Id="EventProvider_Microsoft.Windows.Security.TokenBroker" Name="*Microsoft.Windows.Security.TokenBroker">
+						<EventProvider Id="EventProvider-Microsoft.Tpm.DebugTracing" Name="3a8d6942-b034-48e2-b314-f69c2b4655a3"/>
+						<EventProvider Id="EventProvider-Microsoft.Tpm.HealthAttestationCSP" Name="a935c211-645a-5f5a-4527-778da45bbba5"/>
+						<EventProvider Id="EventProvider-Microsoft.Tpm.ProvisioningTask" Name="470baa67-2d7f-4c9c-8bf4-b1b3226f7b17"/>
 							<Keywords>
 								<Keyword Value="0x0000600000000000"/>
 							</Keywords>
