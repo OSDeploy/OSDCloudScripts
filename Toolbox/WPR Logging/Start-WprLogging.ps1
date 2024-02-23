@@ -11,7 +11,19 @@ $wprp = @'
 		<Profile Id="MDMTraceLoggingProvider.Verbose.File" Name="MDMTraceLoggingProvider" Description="AllMDMTraceLoggingProvider" LoggingMode="File" DetailLevel="Verbose">
 			<Collectors>
 				<EventCollectorId Value="EventCollector_MDMTraceLoggingProvider">
-					<EventProviders>
+					<EventProviders>   
+						<EventProvider Id="EventProvider-Microsoft.AAD.AuthHelper" Name="146273bc-a4bd-4565-ab02-63eb97a7eb20"/>
+						<EventProvider Id="EventProvider-Microsoft.AAD.BrowserCore.Provider" Name="e552c41-40cd-4877-9b60-f243f9a855ab"/>
+						<EventProvider Id="EventProvider-Microsoft.AAD.CloudAp.Provider" Name="74d91ec4-4680-40d2-a213-45e2d2b95f50"/>
+						<EventProvider Id="EventProvider-Microsoft.AAD.TokenBrokerPlugin.Provider" Name="bfed9100-35d7-45d4-bfea-6c1d341d4c6b"/>
+						<EventProvider Id="EventProvider-Microsoft.AAD.WamExtension" Name="7b1ae42d-b4f2-414d-9c97-913f19049964"/>
+						<EventProvider Id="EventProvider-Microsoft.Tpm.DebugTracing" Name="3a8d6942-b034-48e2-b314-f69c2b4655a3"/>
+						<EventProvider Id="EventProvider-Microsoft.Tpm.HealthAttestationCSP" Name="a935c211-645a-5f5a-4527-778da45bbba5"/>
+						<EventProvider Id="EventProvider-Microsoft.Tpm.ProvisioningTask" Name="470baa67-2d7f-4c9c-8bf4-b1b3226f7b17"/>
+						<EventProvider Id="EventProvider-Microsoft.Windows.DeviceManagement.CertificateStore" Name="4f50731a-89cf-4782-b3e0-dce8c90476ba"/>
+						<EventProvider Id="EventProvider-Microsoft.Windows.Shell.AADJCSP" Name="724a3824-7387-449a-825e-b135f2ca4c57"/>
+						<EventProvider Id="EventProvider-Microsoft.Windows.Shell.CloudDomainJoin.Client" Name="AA02D1A4-72D8-5F50-D425-7402EA09253A"/>
+						<EventProvider Id="EventProvider-Microsoft.Windows.Shell.CloudExperienceHost" Name="d0034f5e-3686-5a74-dc48-5a22dd4f3d5b"/>
 						<EventProvider Id="EventProvider_AADCorePlugin" Name="4DE9BC9C-B27A-43C9-8994-0915F1A5E24F"/>
 						<EventProvider Id="EventProvider_ADMXIngestion" Name="64E05266-27B6-4F6B-AB9E-AB7CC9497089"/>
 						<EventProvider Id="EventProvider_CertificateStore" Name="536D7120-A8A4-4A5F-B1F8-1735DF9B78D0"/>
@@ -36,6 +48,8 @@ $wprp = @'
 						<EventProvider Id="EventProvider_Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider" Name="3DA494E4-0FE2-415C-B895-FB5265C5C83B"/>
 						<EventProvider Id="EventProvider_Microsoft-WindowsPhone-OmaDm-Client-Provider" Name="3B9602FF-E09B-4C6C-BC19-1A3DFA8F2250"/>
 						<EventProvider Id="EventProvider_Microsoft.Windows.EnterpriseModernAppManagement" Name="0e71a49b-ca69-5999-a395-626493eb0cbd"/>
+						<EventProvider Id="EventProvider_Microsoft.Windows.Security.TokenBroker" Name="*Microsoft.Windows.Security.TokenBroker">
+						<EventProvider Id="EventProvider_Microsoft.Windows.Shell.CloudExperienceHost.Common" Name="99eb7b56-f3c6-558c-b9f6-09a33abb4c83"/>
 						<EventProvider Id="EventProvider_NodeCache" Name="24a7f60e-e0cb-5bdc-99a5-0ba8e8c018bd"/>
 						<EventProvider Id="EventProvider_OMADMAPI" Name="7D85C2D0-6490-4BB4-BAC1-247D0BD06F10"/>
 						<EventProvider Id="EventProvider_OmaDMAgent" Name="ACCA0101-AE51-4D60-A32A-552A6B1DEABE"/>
@@ -60,11 +74,7 @@ $wprp = @'
 						<EventProvider Id="EventProvider_WMITraceLoggingProvider" Name="A76DBA2C-9683-4BA7-8FE4-C82601E117BB"/>
 						<EventProvider Id="EventProvider_WapXperfGuid" Name="18F2AB69-92B9-47E4-B9DB-B4AC2E4C7115"/>
 						<EventProvider Id="EventProvider_WindowsAttestation" Name="0a611b27-ba1a-4acf-9c91-ea1611e24c38"/>
-						<EventProvider Id="EventProvider_Microsoft-Windows-TPM-WMI" Name="7d5387b0-cbe0-11da-a94d-0800200c9a66"/>
-						<EventProvider Id="EventProvider_Microsoft.Windows.Security.TokenBroker" Name="*Microsoft.Windows.Security.TokenBroker">
-						<EventProvider Id="EventProvider-Microsoft.Tpm.DebugTracing" Name="3a8d6942-b034-48e2-b314-f69c2b4655a3"/>
-						<EventProvider Id="EventProvider-Microsoft.Tpm.HealthAttestationCSP" Name="a935c211-645a-5f5a-4527-778da45bbba5"/>
-						<EventProvider Id="EventProvider-Microsoft.Tpm.ProvisioningTask" Name="470baa67-2d7f-4c9c-8bf4-b1b3226f7b17"/>
+						<EventProvider Id="EventProvider_microsoft-windows-tpm-wmi" Name="7d5387b0-cbe0-11da-a94d-0800200c9a66"/>
 							<Keywords>
 								<Keyword Value="0x0000600000000000"/>
 							</Keywords>
@@ -80,12 +90,12 @@ $wprp = @'
 </WindowsPerformanceRecorder>
 '@
 
-if (!(Test-Path -Path 'C:\Temp\Toolbox\TraceLogs')) {
-    New-Item -Path 'C:\Temp\Toolbox\TraceLogs' -ItemType Directory -Force -ErrorAction Stop
+if (!(Test-Path -Path 'C:\data\test\bin')) {
+    New-Item -Path 'C:\data\test\bin' -ItemType Directory -Force -ErrorAction Stop
 }
 
-$wprp | Out-File -FilePath 'C:\Temp\Toolbox\TraceLogs\TraceLog.wprp' -Force -Encoding utf8
+$wprp | Out-File -FilePath 'C:\data\test\bin\TraceLogging.wprp' -Force -Encoding utf8
 
-wpr.exe -start C:\Temp\Toolbox\TraceLogs\TraceLog.wprp
+wpr.exe -start C:\data\test\bin\TraceLogging.wprp -filemode -recordtempto c:\data\test\bin
 wpr.exe -status
 

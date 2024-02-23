@@ -1,4 +1,4 @@
 ﻿#Requires -RunAsAdministrator
 
-wpr.exe -stop C:\Temp\Toolbox\TraceLogs\results.etl
-explorer C:\Temp\Toolbox\TraceLogs
+wpr.exe -stop C:\data\test\bin\results.etl
+explorer C:\data\test\bin
