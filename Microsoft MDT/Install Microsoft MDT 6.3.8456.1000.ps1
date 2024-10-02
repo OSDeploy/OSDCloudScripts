@@ -1,7 +1,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Microsoft Deployment Toolkit
+Install Microsoft MDT 6.3.8456.1000
 .LINK
 https://learn.microsoft.com/en-us/mem/configmgr/mdt/
 #>
