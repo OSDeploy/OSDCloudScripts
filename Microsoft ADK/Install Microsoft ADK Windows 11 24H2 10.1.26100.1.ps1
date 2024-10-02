@@ -1,6 +1,6 @@
 #Requires -RunAsAdministrator
 <#
-.DESCRIPTION
+.SYNOPSIS
 Install Microsoft ADK Windows 11 24H2 10.1.26100.1
 .LINK
 https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -33,6 +33,11 @@ else {
 }
 Write-Host -ForegroundColor Green '[+] Downloading and Installing Windows PE add-on for the Windows ADK 10.1.26100.1 (May 2024)'
 Start-Process -FilePath "$env:TEMP\adkwinpesetup.exe" -ArgumentList '/features', 'OptionId.WindowsPreinstallationEnvironment', '/quiet', '/ceip', 'off', '/norestart' -Wait
+
+# Bugfix for MDT Windows PE x86 MMC snap-in error
+if (-not (Test-Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs')) {
+    New-Item -Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs' -ItemType Directory -Force
+}
 
 # Complete
 Write-Host -ForegroundColor Green '[+] Windows ADK 10.1.26100.1 (May 2024) has been installed'

@@ -1,6 +1,6 @@
 #Requires -RunAsAdministrator
 <#
-.DESCRIPTION
+.SYNOPSIS
 Install Microsoft ADK Windows 11 21H2 10.1.22000.1
 .LINK
 https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -39,7 +39,7 @@ if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     # Install
     winget install --id Microsoft.ADKPEAddon --version 10.1.22000.1 --exact --accept-source-agreements --accept-package-agreements
     
-    # Fix MDT x86 Boot Image Properties error
+    # Bugfix for MDT Windows PE x86 MMC snap-in error
     if (-not (Test-Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs')) {
         New-Item -Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs' -ItemType Directory -Force
     }
