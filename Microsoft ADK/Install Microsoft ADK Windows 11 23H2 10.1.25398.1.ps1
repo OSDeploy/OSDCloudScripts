@@ -1,4 +1,4 @@
-﻿#Requires -RunAsAdministrator
+#Requires -RunAsAdministrator
 <#
 .DESCRIPTION
 Install Microsoft ADK Windows 11 23H2 10.1.25398.1
