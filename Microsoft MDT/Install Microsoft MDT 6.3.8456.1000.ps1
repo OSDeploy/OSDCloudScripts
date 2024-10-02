@@ -9,6 +9,18 @@ https://learn.microsoft.com/en-us/mem/configmgr/mdt/
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
+    Write-Host -Message 'WinGet is already installed.'
+}
+else {
+    try {
+        Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe -Verbose
+    }
+    catch {
+        Write-Error -Message 'WinGet could not be installed.'
+    }
+}
+
+if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     # Show all available versions
     winget show --id Microsoft.DeploymentToolkit --versions
 
