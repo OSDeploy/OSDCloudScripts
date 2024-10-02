@@ -197,6 +197,7 @@ if ($InstallOSD -eq $true) {
         Write-Host -ForegroundColor Green "[+] $id"
     }
 
+    # Fix MDT x86 Boot Image Properties error
     if (-not (Test-Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs')) {
         New-Item -Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs' -ItemType Directory -Force
     }

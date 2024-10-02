@@ -1,5 +1,6 @@
-OSDCloud Scripts is really really really unfinished
-Please don't count on these scripts working 100%
+To use OSDCloudScripts, run the following command in an Admin PowerShell session
+
+iex(irm scripts.osdcloud.com)
 
 Currently this is used for testing and development purposes only
 

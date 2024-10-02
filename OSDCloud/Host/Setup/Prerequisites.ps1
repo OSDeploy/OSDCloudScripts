@@ -28,7 +28,10 @@ winget install --id Microsoft.WindowsADK --version 10.1.22621.1 --exact
 winget show --id Microsoft.ADKPEAddon --versions
 winget install --id Microsoft.ADKPEAddon --version 10.1.22621.1 --exact
 
-New-Item -Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs' -ItemType Directory -Force
+# Fix MDT x86 Boot Image Properties error
+if (-not (Test-Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs')) {
+    New-Item -Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs' -ItemType Directory -Force
+}
 
 # Microsoft Deployment Toolkit
 winget install --id Microsoft.DeploymentToolkit --version 6.3.8456.1000 --exact
