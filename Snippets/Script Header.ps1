@@ -18,7 +18,7 @@
 #Requires -Modules @{ ModuleName="AzureRM.Netcore"; MaximumVersion="0.12.0" }
 #Requires -Modules @{ ModuleName="OSD"; ModuleVersion="23.5.26.1" }
 #Requires -PSEdition Core
-#Requires -PSEdition Desktop
+# #Requires -PSEdition Desktop
 #Requires -RunAsAdministrator
 #Requires -Version 5.1
 #Requires -Assembly path\to\foo.dll
