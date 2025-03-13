@@ -22,7 +22,7 @@ Edit-OSDCloudWinPE -UseDefaultWallpaper
 if (Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All) {
 
     # Set OSDCloud VM Defaults
-    Set-OSDCloudVMSettings -MemoryStartupGB 6 -ProcessorCount 2 -SwitchName 'Default Switch'
+    Set-OSDCloudVMSettings -MemoryStartupGB 8 -ProcessorCount 2 -SwitchName 'Default Switch'
     
     # Test in Hyper-V
     New-OSDCloudVM
